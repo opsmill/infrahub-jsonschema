@@ -1,0 +1,1076 @@
+{
+    "$defs": {
+        "AttributeSchema": {
+            "additionalProperties": false,
+            "properties": {
+                "id": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Id",
+                    "update": "not_applicable"
+                },
+                "name": {
+                    "maxLength": 32,
+                    "minLength": 2,
+                    "pattern": "^[a-z0-9\\_]+$",
+                    "title": "Name",
+                    "type": "string",
+                    "update": "not_supported"
+                },
+                "kind": {
+                    "title": "Kind",
+                    "type": "string",
+                    "update": "migration_required"
+                },
+                "label": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Label",
+                    "update": "allowed"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "maxLength": 128,
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Description",
+                    "update": "allowed"
+                },
+                "default_value": {
+                    "anyOf": [
+                        {},
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Default Value",
+                    "update": "allowed"
+                },
+                "enum": {
+                    "anyOf": [
+                        {
+                            "items": {},
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Enum",
+                    "update": "check_constraints"
+                },
+                "regex": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Regex",
+                    "update": "check_constraints"
+                },
+                "max_length": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Max Length",
+                    "update": "check_constraints"
+                },
+                "min_length": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Min Length",
+                    "update": "check_constraints"
+                },
+                "read_only": {
+                    "default": false,
+                    "title": "Read Only",
+                    "type": "boolean",
+                    "update": "allowed"
+                },
+                "inherited": {
+                    "default": false,
+                    "title": "Inherited",
+                    "type": "boolean",
+                    "update": "not_applicable"
+                },
+                "unique": {
+                    "default": false,
+                    "title": "Unique",
+                    "type": "boolean",
+                    "update": "check_constraints"
+                },
+                "branch": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/BranchSupportType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "update": "migration_required"
+                },
+                "optional": {
+                    "default": false,
+                    "title": "Optional",
+                    "type": "boolean",
+                    "update": "check_constraints"
+                },
+                "order_weight": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Order Weight",
+                    "update": "allowed"
+                },
+                "choices": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "$ref": "#/$defs/DropdownChoice"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "The available choices if the kind is Dropdown.",
+                    "title": "Choices",
+                    "update": "check_constraints"
+                }
+            },
+            "required": [
+                "name",
+                "kind"
+            ],
+            "title": "AttributeSchema",
+            "type": "object"
+        },
+        "BranchSupportType": {
+            "enum": [
+                "aware",
+                "agnostic",
+                "local"
+            ],
+            "title": "BranchSupportType",
+            "type": "string"
+        },
+        "DropdownChoice": {
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "title": "Name",
+                    "type": "string"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Description"
+                },
+                "color": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Color"
+                },
+                "label": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Label"
+                }
+            },
+            "required": [
+                "name"
+            ],
+            "title": "DropdownChoice",
+            "type": "object"
+        },
+        "FilterSchema": {
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "title": "Name",
+                    "type": "string"
+                },
+                "kind": {
+                    "$ref": "#/$defs/FilterSchemaKind"
+                },
+                "enum": {
+                    "anyOf": [
+                        {
+                            "items": {},
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Enum"
+                },
+                "object_kind": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Object Kind"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Description"
+                }
+            },
+            "required": [
+                "name",
+                "kind"
+            ],
+            "title": "FilterSchema",
+            "type": "object"
+        },
+        "FilterSchemaKind": {
+            "enum": [
+                "Text",
+                "Text",
+                "Number",
+                "Boolean",
+                "Object",
+                "MultiObject",
+                "Enum"
+            ],
+            "title": "FilterSchemaKind",
+            "type": "string"
+        },
+        "GenericSchema": {
+            "additionalProperties": false,
+            "description": "A Generic can be either an Interface or a Union depending if there are some Attributes or Relationships defined.",
+            "properties": {
+                "id": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Id"
+                },
+                "name": {
+                    "maxLength": 32,
+                    "minLength": 2,
+                    "pattern": "^[A-Z][a-zA-Z0-9]+$",
+                    "title": "Name",
+                    "type": "string",
+                    "update": "not_supported"
+                },
+                "namespace": {
+                    "maxLength": 32,
+                    "minLength": 3,
+                    "pattern": "^[A-Z][a-zA-Z0-9]+$",
+                    "title": "Namespace",
+                    "type": "string",
+                    "update": "not_supported"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "maxLength": 128,
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Description",
+                    "update": "allowed"
+                },
+                "default_filter": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Default Filter",
+                    "update": "allowed"
+                },
+                "branch": {
+                    "allOf": [
+                        {
+                            "$ref": "#/$defs/BranchSupportType"
+                        }
+                    ],
+                    "default": "aware",
+                    "update": "migration_required"
+                },
+                "order_by": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Order By",
+                    "update": "allowed"
+                },
+                "display_labels": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Display Labels",
+                    "update": "allowed"
+                },
+                "attributes": {
+                    "items": {
+                        "$ref": "#/$defs/AttributeSchema"
+                    },
+                    "title": "Attributes",
+                    "type": "array",
+                    "update": "not_applicable"
+                },
+                "relationships": {
+                    "items": {
+                        "$ref": "#/$defs/RelationshipSchema"
+                    },
+                    "title": "Relationships",
+                    "type": "array",
+                    "update": "not_applicable"
+                },
+                "filters": {
+                    "items": {
+                        "$ref": "#/$defs/FilterSchema"
+                    },
+                    "title": "Filters",
+                    "type": "array",
+                    "update": "not_applicable"
+                },
+                "include_in_menu": {
+                    "anyOf": [
+                        {
+                            "type": "boolean"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Include In Menu",
+                    "update": "allowed"
+                },
+                "menu_placement": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Menu Placement",
+                    "update": "allowed"
+                },
+                "icon": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Icon",
+                    "update": "allowed"
+                },
+                "label": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Label",
+                    "update": "allowed"
+                },
+                "uniqueness_constraints": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Uniqueness Constraints",
+                    "update": "check_constraints"
+                },
+                "hierarchical": {
+                    "default": false,
+                    "title": "Hierarchical",
+                    "type": "boolean",
+                    "update": "check_constraints"
+                },
+                "used_by": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "title": "Used By",
+                    "type": "array",
+                    "update": "not_applicable"
+                }
+            },
+            "required": [
+                "name",
+                "namespace"
+            ],
+            "title": "GenericSchema",
+            "type": "object"
+        },
+        "NodeExtensionSchema": {
+            "additionalProperties": false,
+            "properties": {
+                "kind": {
+                    "title": "Kind",
+                    "type": "string"
+                },
+                "attributes": {
+                    "items": {
+                        "$ref": "#/$defs/AttributeSchema"
+                    },
+                    "title": "Attributes",
+                    "type": "array"
+                },
+                "relationships": {
+                    "items": {
+                        "$ref": "#/$defs/RelationshipSchema"
+                    },
+                    "title": "Relationships",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "kind"
+            ],
+            "title": "NodeExtensionSchema",
+            "type": "object"
+        },
+        "NodeSchema": {
+            "additionalProperties": false,
+            "properties": {
+                "id": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Id"
+                },
+                "name": {
+                    "maxLength": 32,
+                    "minLength": 2,
+                    "pattern": "^[A-Z][a-zA-Z0-9]+$",
+                    "title": "Name",
+                    "type": "string",
+                    "update": "not_supported"
+                },
+                "namespace": {
+                    "maxLength": 32,
+                    "minLength": 3,
+                    "pattern": "^[A-Z][a-zA-Z0-9]+$",
+                    "title": "Namespace",
+                    "type": "string",
+                    "update": "not_supported"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "maxLength": 128,
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Description",
+                    "update": "allowed"
+                },
+                "default_filter": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Default Filter",
+                    "update": "allowed"
+                },
+                "branch": {
+                    "allOf": [
+                        {
+                            "$ref": "#/$defs/BranchSupportType"
+                        }
+                    ],
+                    "default": "aware",
+                    "update": "migration_required"
+                },
+                "order_by": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Order By",
+                    "update": "allowed"
+                },
+                "display_labels": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Display Labels",
+                    "update": "allowed"
+                },
+                "attributes": {
+                    "items": {
+                        "$ref": "#/$defs/AttributeSchema"
+                    },
+                    "title": "Attributes",
+                    "type": "array",
+                    "update": "not_applicable"
+                },
+                "relationships": {
+                    "items": {
+                        "$ref": "#/$defs/RelationshipSchema"
+                    },
+                    "title": "Relationships",
+                    "type": "array",
+                    "update": "not_applicable"
+                },
+                "filters": {
+                    "items": {
+                        "$ref": "#/$defs/FilterSchema"
+                    },
+                    "title": "Filters",
+                    "type": "array",
+                    "update": "not_applicable"
+                },
+                "include_in_menu": {
+                    "anyOf": [
+                        {
+                            "type": "boolean"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Include In Menu",
+                    "update": "allowed"
+                },
+                "menu_placement": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Menu Placement",
+                    "update": "allowed"
+                },
+                "icon": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Icon",
+                    "update": "allowed"
+                },
+                "label": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Label",
+                    "update": "allowed"
+                },
+                "uniqueness_constraints": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Uniqueness Constraints",
+                    "update": "check_constraints"
+                },
+                "inherit_from": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "title": "Inherit From",
+                    "type": "array",
+                    "update": "not_supported"
+                },
+                "hierarchy": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Hierarchy",
+                    "update": "check_constraints"
+                },
+                "parent": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Parent",
+                    "update": "check_constraints"
+                },
+                "children": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Children",
+                    "update": "check_constraints"
+                }
+            },
+            "required": [
+                "name",
+                "namespace"
+            ],
+            "title": "NodeSchema",
+            "type": "object"
+        },
+        "RelationshipCardinality": {
+            "enum": [
+                "one",
+                "many"
+            ],
+            "title": "RelationshipCardinality",
+            "type": "string"
+        },
+        "RelationshipDirection": {
+            "enum": [
+                "bidirectional",
+                "outbound",
+                "inbound"
+            ],
+            "title": "RelationshipDirection",
+            "type": "string"
+        },
+        "RelationshipKind": {
+            "enum": [
+                "Generic",
+                "Attribute",
+                "Component",
+                "Parent",
+                "Group",
+                "Hierarchy"
+            ],
+            "title": "RelationshipKind",
+            "type": "string"
+        },
+        "RelationshipSchema": {
+            "additionalProperties": false,
+            "properties": {
+                "id": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Id",
+                    "update": "not_applicable"
+                },
+                "name": {
+                    "maxLength": 32,
+                    "minLength": 2,
+                    "pattern": "^[a-z0-9\\_]+$",
+                    "title": "Name",
+                    "type": "string",
+                    "update": "not_supported"
+                },
+                "peer": {
+                    "maxLength": 32,
+                    "minLength": 3,
+                    "pattern": "^[A-Z][a-zA-Z0-9]+$",
+                    "title": "Peer",
+                    "type": "string",
+                    "update": "check_constraints"
+                },
+                "kind": {
+                    "allOf": [
+                        {
+                            "$ref": "#/$defs/RelationshipKind"
+                        }
+                    ],
+                    "default": "Generic",
+                    "update": "allowed"
+                },
+                "direction": {
+                    "allOf": [
+                        {
+                            "$ref": "#/$defs/RelationshipDirection"
+                        }
+                    ],
+                    "default": "bidirectional",
+                    "update": "migration_required"
+                },
+                "label": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Label",
+                    "update": "allowed"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "maxLength": 128,
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Description",
+                    "update": "allowed"
+                },
+                "identifier": {
+                    "anyOf": [
+                        {
+                            "maxLength": 128,
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Identifier",
+                    "update": "migration_required"
+                },
+                "inherited": {
+                    "default": false,
+                    "title": "Inherited",
+                    "type": "boolean",
+                    "update": "not_applicable"
+                },
+                "cardinality": {
+                    "allOf": [
+                        {
+                            "$ref": "#/$defs/RelationshipCardinality"
+                        }
+                    ],
+                    "default": "many",
+                    "update": "check_constraints"
+                },
+                "branch": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/BranchSupportType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "update": "migration_required"
+                },
+                "optional": {
+                    "default": true,
+                    "title": "Optional",
+                    "type": "boolean",
+                    "update": "check_constraints"
+                },
+                "hierarchical": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Hierarchical",
+                    "update": "migration_required"
+                },
+                "filters": {
+                    "items": {
+                        "$ref": "#/$defs/FilterSchema"
+                    },
+                    "title": "Filters",
+                    "type": "array",
+                    "update": "not_applicable"
+                },
+                "order_weight": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Order Weight",
+                    "update": "allowed"
+                },
+                "min_count": {
+                    "default": 0,
+                    "title": "Min Count",
+                    "type": "integer",
+                    "update": "check_constraints"
+                },
+                "max_count": {
+                    "default": 0,
+                    "title": "Max Count",
+                    "type": "integer",
+                    "update": "check_constraints"
+                }
+            },
+            "required": [
+                "name",
+                "peer"
+            ],
+            "title": "RelationshipSchema",
+            "type": "object"
+        },
+        "SchemaExtension": {
+            "additionalProperties": false,
+            "properties": {
+                "nodes": {
+                    "items": {
+                        "$ref": "#/$defs/NodeExtensionSchema"
+                    },
+                    "title": "Nodes",
+                    "type": "array"
+                }
+            },
+            "title": "SchemaExtension",
+            "type": "object"
+        }
+    },
+    "additionalProperties": false,
+    "properties": {
+        "version": {
+            "title": "Version",
+            "type": "string"
+        },
+        "generics": {
+            "items": {
+                "$ref": "#/$defs/GenericSchema"
+            },
+            "title": "Generics",
+            "type": "array"
+        },
+        "nodes": {
+            "items": {
+                "$ref": "#/$defs/NodeSchema"
+            },
+            "title": "Nodes",
+            "type": "array"
+        },
+        "extensions": {
+            "allOf": [
+                {
+                    "$ref": "#/$defs/SchemaExtension"
+                }
+            ],
+            "default": {
+                "nodes": []
+            }
+        }
+    },
+    "required": [
+        "version"
+    ],
+    "title": "InfrahubSchema",
+    "type": "object"
+}
