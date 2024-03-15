@@ -1,6 +1,5 @@
 # infrahub-schema
 
-
 ## How to update a Schema
 
 Generate the new schema, using the Infrahub cli tool
@@ -8,12 +7,10 @@ Generate the new schema, using the Infrahub cli tool
 infrahub generate-schema schema
 ```
 
-- Create a new directory in the `schemas/versions` with the appropriate version number
-- Copy the schema file in the new directory
-- Navigate to the `schemas/develop` and update the symbolic link
+- Copy the schema file to schemas/infrahub/schema/[version-number].json (i.e. 0.12.0.json)
+- Navigate to the `schemas/infrahub/schema` and update the symbolic link
 
 ```
-cd schemas/develop
-ln -f -s ../versions/0.6.0/infrahub_schema.schema.json schema.schema.json
+cd schemas/infrahub/schema
+ln -f -s 0.12.0.json latest.json
 ```
-
