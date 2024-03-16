@@ -1,0 +1,192 @@
+{
+    "title": "InfrahubRepositoryConfig",
+    "type": "object",
+    "properties": {
+        "check_definitions": {
+            "title": "Check Definitions",
+            "description": "User defined checks",
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/InfrahubCheckDefinitionConfig"
+            }
+        },
+        "schemas": {
+            "title": "Schemas",
+            "description": "Schema files",
+            "type": "array",
+            "items": {
+                "type": "string",
+                "format": "path"
+            }
+        },
+        "jinja2_transforms": {
+            "title": "Jinja2 Transforms",
+            "description": "Jinja2 data transformations",
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/InfrahubJinja2TransformConfig"
+            }
+        },
+        "artifact_definitions": {
+            "title": "Artifact Definitions",
+            "description": "Artifact definitions",
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/InfrahubRepositoryArtifactDefinitionConfig"
+            }
+        },
+        "python_transforms": {
+            "title": "Python Transforms",
+            "description": "Python data transformations",
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/InfrahubPythonTransformConfig"
+            }
+        }
+    },
+    "definitions": {
+        "InfrahubCheckDefinitionConfig": {
+            "title": "InfrahubCheckDefinitionConfig",
+            "description": "Class to regroup all elements of the infrahub configuration for a repository for typing purpose.",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "title": "Name",
+                    "description": "The name of the Check Definition",
+                    "type": "string"
+                },
+                "file_path": {
+                    "title": "File Path",
+                    "description": "The file within the repository with the check code.",
+                    "type": "string",
+                    "format": "path"
+                },
+                "parameters": {
+                    "title": "Parameters",
+                    "description": "The input parameters required to run this check",
+                    "type": "object"
+                },
+                "targets": {
+                    "title": "Targets",
+                    "description": "The group to target when running this check, leave blank for global checks",
+                    "type": "string"
+                },
+                "class_name": {
+                    "title": "Class Name",
+                    "description": "The name of the check class to run.",
+                    "default": "Check",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name",
+                "file_path"
+            ]
+        },
+        "InfrahubJinja2TransformConfig": {
+            "title": "InfrahubJinja2TransformConfig",
+            "description": "Class to regroup all elements of the infrahub configuration for a repository for typing purpose.",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "title": "Name",
+                    "description": "The name of the transform",
+                    "type": "string"
+                },
+                "query": {
+                    "title": "Query",
+                    "description": "The name of the GraphQL Query",
+                    "type": "string"
+                },
+                "template_path": {
+                    "title": "Template Path",
+                    "description": "The path within the repository of the template file",
+                    "type": "string",
+                    "format": "path"
+                },
+                "description": {
+                    "title": "Description",
+                    "description": "Description for this transform",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name",
+                "query",
+                "template_path"
+            ]
+        },
+        "InfrahubRepositoryArtifactDefinitionConfig": {
+            "title": "InfrahubRepositoryArtifactDefinitionConfig",
+            "description": "Class to regroup all elements of the infrahub configuration for a repository for typing purpose.",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "title": "Name",
+                    "description": "The name of the artifact definition",
+                    "type": "string"
+                },
+                "artifact_name": {
+                    "title": "Artifact Name",
+                    "description": "Name of the artifact created from this definition",
+                    "type": "string"
+                },
+                "parameters": {
+                    "title": "Parameters",
+                    "description": "The input parameters required to render this artifact",
+                    "type": "object"
+                },
+                "content_type": {
+                    "title": "Content Type",
+                    "description": "The content type of the rendered artifact",
+                    "type": "string"
+                },
+                "targets": {
+                    "title": "Targets",
+                    "description": "The group to target when creating artifacts",
+                    "type": "string"
+                },
+                "transformation": {
+                    "title": "Transformation",
+                    "description": "The transformation to use.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name",
+                "parameters",
+                "content_type",
+                "targets",
+                "transformation"
+            ]
+        },
+        "InfrahubPythonTransformConfig": {
+            "title": "InfrahubPythonTransformConfig",
+            "description": "Class to regroup all elements of the infrahub configuration for a repository for typing purpose.",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "title": "Name",
+                    "description": "The name of the Transform",
+                    "type": "string"
+                },
+                "file_path": {
+                    "title": "File Path",
+                    "description": "The file within the repository with the transform code.",
+                    "type": "string",
+                    "format": "path"
+                },
+                "class_name": {
+                    "title": "Class Name",
+                    "description": "The name of the transform class to run.",
+                    "default": "Transform",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name",
+                "file_path"
+            ]
+        }
+    }
+}
