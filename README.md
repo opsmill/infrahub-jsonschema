@@ -5,7 +5,7 @@ Infrahub JSON Schema is the home of various [JSON Schema](https://json-schema.or
 > A JSON Schema file is a standard specification that describes the structure and validation rules for various data (YAML, JSON). It provides a way to define what a valid document should look like, including the types of values, required fields, default values, and other constraints.
 
 Currently we maintain JSON Schema files for:
-- [Infrahub Schema definition file](https://docs.infrahub.app/topics/schema) Standard schema file for Infrahub, usually defined in Yaml
+- [Infrahub Schema definition file](https://docs.infrahub.app/topics/schema) Schema file for Infrahub, usually defined in Yaml
 - [Infrahub repository configuration file](https://docs.infrahub.app/topics/infrahub-yml) (`.infrahub.yml`)
 
 
