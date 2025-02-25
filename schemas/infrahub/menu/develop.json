@@ -1,0 +1,97 @@
+{
+    "title": "Infrahub Menu Schema",
+    "description": "Schema for defining menus in Infrahub",
+    "type": "object",
+    "properties": {
+        "apiVersion": {
+            "type": "string",
+            "enum": [
+                "infrahub.app/v1"
+            ],
+            "description": "The API version for the menu definition."
+        },
+        "kind": {
+            "type": "string",
+            "enum": [
+                "Menu"
+            ],
+            "description": "The kind of resource, should always be 'Menu'."
+        },
+        "spec": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "description": "List of top-level menu items.",
+                    "items": {
+                        "$ref": "#/$defs/menuItem"
+                    }
+                }
+            },
+            "required": [
+                "data"
+            ]
+        }
+    },
+    "$defs": {
+        "menuItem": {
+            "type": "object",
+            "properties": {
+                "namespace": {
+                    "type": "string",
+                    "description": "Namespace of the menu item."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the menu item."
+                },
+                "label": {
+                    "type": "string",
+                    "description": "Display name of the menu item."
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Schema node this menu item represents."
+                },
+                "path": {
+                    "type": "string",
+                    "description": "Custom path for navigation."
+                },
+                "icon": {
+                    "type": "string",
+                    "description": "Icon associated with the menu item."
+                },
+                "order_weight": {
+                    "type": "integer",
+                    "description": "Determines the ordering of menu items."
+                },
+                "parent": {
+                    "type": "string",
+                    "description": "Parent menu item name for hierarchy."
+                },
+                "children": {
+                    "description": "Sub-menu items nested under this item.",
+                    "type": "object",
+                    "properties": {
+                        "data": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/$defs/menuItem"
+                            }
+                        }
+                    }
+                }
+            },
+            "required": [
+                "name",
+                "label",
+                "namespace"
+            ]
+        }
+    },
+    "required": [
+        "apiVersion",
+        "kind",
+        "spec"
+    ]
+}

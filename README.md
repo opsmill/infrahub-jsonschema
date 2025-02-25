@@ -7,16 +7,28 @@ Infrahub JSON Schema is the home of various [JSON Schema](https://json-schema.or
 Currently we maintain JSON Schema files for:
 
 - [Infrahub Schema definition file](https://docs.infrahub.app/topics/schema) Schema file for Infrahub, usually defined in Yaml
+- [Infrahub Menu Schema](https://docs.infrahub.app/reference/menu/) Schema for defining menu structures in Infrahub im Yaml.
 - [Infrahub repository configuration file](https://docs.infrahub.app/topics/infrahub-yml) (`.infrahub.yml`)
 
 ## Integration with standard IDE via yaml-language-server
 
 In most IDE it's be possible to get inline format validation of a YAML file by providing the address of a JSON Schema file at the top of the file, using the syntax below
 
+#### For schema definitions, use:
+
 ```yaml
 # yaml-language-server: $schema=https://schema.infrahub.app/infrahub/schema/latest.json
 ---
 version: '1.0'
+```
+
+#### For menu definitions, use:
+
+```yaml
+# yaml-language-server: $schema=https://schema.infrahub.app/infrahub/menu/latest.json
+---
+apiVersion: infrahub.app/v1
+kind: Menu
 ```
 
 ## Public URL
