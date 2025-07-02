@@ -19,20 +19,18 @@ jobs:
       with:
         python-version: '3.12'
         
-    - name: Install Poetry
-      uses: snok/install-poetry@v1
+    - name: Install uv
+      uses: astral-sh/setup-uv@v3
       with:
-        version: latest
-        virtualenvs-create: true
-        virtualenvs-in-project: true
+        version: "latest"
         
     - name: Install dependencies
       run: |
-        poetry install --with dev
+        uv sync --extra dev
         
     - name: Validate JSON schema files with pytest
       run: |
-        poetry run pytest test_schema_validation.py -v
+        uv run pytest test_schema_validation.py -v
         
     - name: Check for JSON syntax in all JSON files
       run: |

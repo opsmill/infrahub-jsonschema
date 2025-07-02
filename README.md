@@ -44,10 +44,10 @@ This repository includes automated validation to ensure all JSON files are valid
 To validate all schema files locally:
 
 ```shell
-python validate_schemas.py
+uv run pytest test_schema_validation.py -v
 ```
 
-This script will:
+This will:
 - Validate that all `.json` files contain valid JSON and are valid JSON schemas
 - Validate that any `.infrahub.yml` files are valid YAML and conform to the repository config schema
 - Report any validation errors with detailed error messages
@@ -55,7 +55,7 @@ This script will:
 ### Continuous Integration
 
 The validation runs automatically on every push and pull request via GitHub Actions. The CI workflow:
-- Validates all JSON schema files using the validation script
+- Validates all JSON schema files using pytest
 - Double-checks JSON syntax using `jq`
 - Fails the build if any validation errors are found
 
@@ -82,5 +82,5 @@ ln -f -s 0.12.0.json latest.json
 After updating schemas, run the validation to ensure they are correct:
 
 ```shell
-python validate_schemas.py
+uv run pytest test_schema_validation.py -v
 ```
