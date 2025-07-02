@@ -30,7 +30,7 @@ jobs:
         
     - name: Validate JSON schema files with pytest
       run: |
-        uv run pytest test_schema_validation.py -v
+        uv run pytest -v
         
     - name: Check for JSON syntax in all JSON files
       run: |
