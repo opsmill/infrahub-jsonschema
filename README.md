@@ -35,6 +35,30 @@ kind: Menu
 
 Everything under the `schemas/` directory is automatically published to `https://schema.infrahub.app` to simplify the integration with external tools that requires a public URL
 
+## Validation
+
+This repository includes automated validation to ensure all JSON files are valid JSON schemas and any `.infrahub.yml` files conform to the repository configuration schema.
+
+### Running Validation Locally
+
+To validate all schema files locally:
+
+```shell
+uv run pytest test_schema_validation.py -v
+```
+
+This will:
+- Validate that all `.json` files contain valid JSON and are valid JSON schemas
+- Validate that any `.infrahub.yml` files are valid YAML and conform to the repository config schema
+- Report any validation errors with detailed error messages
+
+### Continuous Integration
+
+The validation runs automatically on every push and pull request via GitHub Actions. The CI workflow:
+- Validates all JSON schema files using pytest
+- Double-checks JSON syntax using `jq`
+- Fails the build if any validation errors are found
+
 ## How to update a Schema
 
 Generate the new schemas, using the invoke tool from the main [Infrahub repository](https://github.com/opsmill/infrahub).
@@ -53,4 +77,10 @@ Example:
 ```shell
 cd schemas/infrahub/schema
 ln -f -s 0.12.0.json latest.json
+```
+
+After updating schemas, run the validation to ensure they are correct:
+
+```shell
+uv run pytest test_schema_validation.py -v
 ```
