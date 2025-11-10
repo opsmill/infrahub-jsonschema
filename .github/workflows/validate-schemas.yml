@@ -9,29 +9,29 @@ on:
 jobs:
   validate-schemas:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      
+
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.12'
-        
+
     - name: Install uv
       uses: astral-sh/setup-uv@v3
       with:
         version: "latest"
-        
+
     - name: Install dependencies
       run: |
         uv sync --extra dev
-        
+
     - name: Validate JSON schema files with pytest
       run: |
         uv run pytest -v
-        
+
     - name: Check for JSON syntax in all JSON files
       run: |
         echo "🔍 Double-checking JSON syntax with jq..."
