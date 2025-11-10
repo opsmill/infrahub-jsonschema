@@ -43,6 +43,10 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 
+# Direnv files (https://direnv.net/)
+.direnv/
+.envrc
+
 # Environments
 .env
 .venv
