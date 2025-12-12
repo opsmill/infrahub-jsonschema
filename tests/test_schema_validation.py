@@ -6,6 +6,7 @@ This test suite validates that all .json files are valid JSON and valid JSON sch
 import glob
 import json
 from dataclasses import dataclass
+from enum import StrEnum
 from pathlib import Path
 
 import jsonschema
@@ -16,15 +17,66 @@ REPO_ROOT = Path(__file__).parent.parent
 ALL_JSON_FILES = sorted(glob.glob(str(REPO_ROOT / "**" / "*.json"), recursive=True))
 
 
+class SchemaSection(StrEnum):
+    PYTHON_SDK = "python-sdk"
+    INFRAHUB = "infrahub"
+    DEVELOP = "develop"
+    VERSIONS = "versions"
+
+    @property
+    def has_schema_dir(self) -> bool:
+        return self in {
+            SchemaSection.PYTHON_SDK,
+            SchemaSection.INFRAHUB,
+            SchemaSection.VERSIONS,
+        }
+
+
 @dataclass
 class JsonTestCase:
-    name: str
     file_path: Path
+
+    @property
+    def file_name(self) -> str:
+        return self.file_path.name
+
+    @property
+    def version(self) -> str:
+        return self.file_path.stem
+
+    @property
+    def name(self) -> str:
+        return f"{self.section}/{self.schema_type}{self.version}"
+
+    @property
+    def relative_path(self) -> Path:
+        return self.file_path.relative_to(REPO_ROOT)
+
+    @property
+    def relative_dir(self) -> Path:
+        return self.relative_path.parent
+
+    @property
+    def section(self) -> SchemaSection:
+        return SchemaSection(self.sections[0])
+
+    @property
+    def schema_type(self) -> str:
+        if self.section.has_schema_dir:
+            return f"{self.sections[1]}/"
+        return ""
+
+    @property
+    def sections(self) -> list[str]:
+        section_parts = self.relative_dir.parts
+        assert section_parts[0] == "schemas", (
+            "Expected JSON files to be under 'schemas/' directory"
+        )
+        return list(section_parts[1:])
 
 
 ALL_JSON_TEST_CASES = [
-    JsonTestCase(name=json_file, file_path=Path(json_file))
-    for json_file in ALL_JSON_FILES
+    JsonTestCase(file_path=Path(json_file)) for json_file in ALL_JSON_FILES
 ]
 
 
