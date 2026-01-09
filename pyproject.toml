@@ -2,7 +2,7 @@
 name = "infrahub-schema"
 version = "0.1.0"
 description = "Infrahub JSON Schema validation tools"
-requires-python = ">=3.9,<3.13"
+requires-python = ">=3.9,<3.15"
 dependencies = [
     "invoke>=2.1.2",
 ]
