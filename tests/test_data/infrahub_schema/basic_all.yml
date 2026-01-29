@@ -1,0 +1,24 @@
+---
+version: "1.0"
+generics:
+  - name: Interface
+    namespace: Infra
+    description: "Generic Network Interface"
+    label: "Interface"
+
+nodes:
+  # --------------------  Device (Platforms, Device, Interfaces)  --------------------
+  - name: Device
+    namespace: Infra
+    description: "Generic Device object"
+    label: "Device"
+    icon: "mdi:server"
+    order_by:
+      - name__value
+    attributes:
+      - name: name
+        kind: Text
+        unique: true
+      - name: description
+        kind: Text
+        optional: true
