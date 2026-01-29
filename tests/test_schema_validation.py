@@ -11,7 +11,8 @@ from pathlib import Path
 
 import jsonschema
 import pytest
-from jsonschema import Draft7Validator, Draft202012Validator
+import yaml
+from jsonschema import Draft202012Validator
 
 REPO_ROOT = Path(__file__).parent.parent
 ALL_JSON_FILES = sorted(glob.glob(str(REPO_ROOT / "**" / "*.json"), recursive=True))
@@ -74,10 +75,50 @@ class JsonTestCase:
         )
         return list(section_parts[1:])
 
+    @property
+    def is_version_1_or_higher(self) -> bool:
+        """Check if version is 1.0.0 or higher, or a special version like develop/latest."""
+        if self.version in ("develop", "latest"):
+            return True
+        version_parts = self.version.split(".")
+        if version_parts[0].isdigit():
+            return int(version_parts[0]) >= 1
+        return False
+
 
 ALL_JSON_TEST_CASES = [
     JsonTestCase(file_path=Path(json_file)) for json_file in ALL_JSON_FILES
 ]
+
+PYTHON_SDK_TEST_CASES = [
+    test_case
+    for test_case in ALL_JSON_TEST_CASES
+    if test_case.section == SchemaSection.PYTHON_SDK
+    and test_case.is_version_1_or_higher
+]
+
+INFRAHUB_SCHEMA_TEST_CASES = [
+    test_case
+    for test_case in ALL_JSON_TEST_CASES
+    if test_case.section == SchemaSection.INFRAHUB
+    and test_case.is_version_1_or_higher
+    and len(test_case.sections) > 1
+    and test_case.sections[1] == "schema"
+]
+
+
+def test_python_sdk_test_cases_sanity_check() -> None:
+    """Sanity check to ensure PYTHON_SDK_TEST_CASES has a reasonable number of entries."""
+    assert len(PYTHON_SDK_TEST_CASES) > 5, (
+        f"Expected more than 5 Python SDK test cases, got {len(PYTHON_SDK_TEST_CASES)}"
+    )
+
+
+def test_infrahub_schema_test_cases_sanity_check() -> None:
+    """Sanity check to ensure INFRAHUB_SCHEMA_TEST_CASES has a reasonable number of entries."""
+    assert len(INFRAHUB_SCHEMA_TEST_CASES) > 5, (
+        f"Expected more than 5 Infrahub schema test cases, got {len(INFRAHUB_SCHEMA_TEST_CASES)}"
+    )
 
 
 @pytest.mark.parametrize(
@@ -101,9 +142,94 @@ def test_collect_and_validate_all_json_schema_files(test_case: JsonTestCase) -> 
     with open(test_case.file_path, "r", encoding="utf-8") as f:
         schema = json.load(f)
 
-    # Try to create a validator - this will fail if it's not a valid schema
-    # First try Draft 2020-12, then fall back to Draft 7
-    try:
-        Draft202012Validator.check_schema(schema)
-    except jsonschema.SchemaError:
-        Draft7Validator.check_schema(schema)
+    Draft202012Validator.check_schema(schema)
+
+
+@pytest.mark.parametrize(
+    "test_case",
+    [pytest.param(tc, id=tc.name) for tc in PYTHON_SDK_TEST_CASES],
+)
+def test_validate_basic_yaml_against_python_sdk_schemas(
+    test_case: JsonTestCase,
+) -> None:
+    """Validate that basic_all.yml is valid against Python SDK schemas."""
+
+    with open(test_case.file_path, "r", encoding="utf-8") as f:
+        schema = json.load(f)
+
+    yaml_file_path = (
+        REPO_ROOT / "tests" / "test_data" / "repository_configs" / "basic_all.yml"
+    )
+    with open(yaml_file_path, "r", encoding="utf-8") as f:
+        data = yaml.safe_load(f)
+
+    validator = Draft202012Validator(schema)
+    validator.validate(data)
+
+
+@pytest.mark.parametrize(
+    "test_case",
+    [pytest.param(tc, id=tc.name) for tc in PYTHON_SDK_TEST_CASES],
+)
+def test_validate_invalid_yaml_fails_against_python_sdk_schemas(
+    test_case: JsonTestCase,
+) -> None:
+    """Validate that invalid_all.yml fails validation against all Python SDK schemas."""
+
+    with open(test_case.file_path, "r", encoding="utf-8") as f:
+        schema = json.load(f)
+
+    yaml_file_path = (
+        REPO_ROOT / "tests" / "test_data" / "repository_configs" / "invalid_all.yml"
+    )
+    with open(yaml_file_path, "r", encoding="utf-8") as f:
+        data = yaml.safe_load(f)
+
+    validator = Draft202012Validator(schema)
+    with pytest.raises(jsonschema.ValidationError):
+        validator.validate(data)
+
+
+@pytest.mark.parametrize(
+    "test_case",
+    [pytest.param(tc, id=tc.name) for tc in INFRAHUB_SCHEMA_TEST_CASES],
+)
+def test_validate_basic_yaml_against_infrahub_schemas(
+    test_case: JsonTestCase,
+) -> None:
+    """Validate that basic_all.yml is valid against Infrahub schemas."""
+
+    with open(test_case.file_path, "r", encoding="utf-8") as f:
+        schema = json.load(f)
+
+    yaml_file_path = (
+        REPO_ROOT / "tests" / "test_data" / "infrahub_schema" / "basic_all.yml"
+    )
+    with open(yaml_file_path, "r", encoding="utf-8") as f:
+        data = yaml.safe_load(f)
+
+    validator = Draft202012Validator(schema)
+    validator.validate(data)
+
+
+@pytest.mark.parametrize(
+    "test_case",
+    [pytest.param(tc, id=tc.name) for tc in INFRAHUB_SCHEMA_TEST_CASES],
+)
+def test_validate_invalid_yaml_fails_against_infrahub_schemas(
+    test_case: JsonTestCase,
+) -> None:
+    """Validate that invalid_all.yml fails validation against all Infrahub schemas."""
+
+    with open(test_case.file_path, "r", encoding="utf-8") as f:
+        schema = json.load(f)
+
+    yaml_file_path = (
+        REPO_ROOT / "tests" / "test_data" / "infrahub_schema" / "invalid_all.yml"
+    )
+    with open(yaml_file_path, "r", encoding="utf-8") as f:
+        data = yaml.safe_load(f)
+
+    validator = Draft202012Validator(schema)
+    with pytest.raises(jsonschema.ValidationError):
+        validator.validate(data)

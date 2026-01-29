@@ -1,0 +1,12 @@
+---
+jinja2_transforms:
+  - name: "device_startup"
+    description: "Template to generate startup configuration for network devices"
+    query: "device_startup_info"
+    template_path: "templates/device_startup_config.tpl.j2"
+    forbidden_entry: "this is not supported"
+
+  - name: "clab_topology"
+    query: "topology_info"
+    template_path: "topology/topology.tpl.j2"
+
