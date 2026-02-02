@@ -14,7 +14,7 @@ Currently we maintain JSON Schema files for:
 
 In most IDE it's be possible to get inline format validation of a YAML file by providing the address of a JSON Schema file at the top of the file, using the syntax below
 
-#### For schema definitions, use:
+### For schema definitions
 
 ```yaml
 # yaml-language-server: $schema=https://schema.infrahub.app/infrahub/schema/latest.json
@@ -22,7 +22,7 @@ In most IDE it's be possible to get inline format validation of a YAML file by p
 version: '1.0'
 ```
 
-#### For menu definitions, use:
+### For menu definitions
 
 ```yaml
 # yaml-language-server: $schema=https://schema.infrahub.app/infrahub/menu/latest.json
@@ -48,6 +48,7 @@ uv run pytest test_schema_validation.py -v
 ```
 
 This will:
+
 - Validate that all `.json` files contain valid JSON and are valid JSON schemas
 - Validate that any `.infrahub.yml` files are valid YAML and conform to the repository config schema
 - Report any validation errors with detailed error messages
@@ -55,16 +56,27 @@ This will:
 ### Continuous Integration
 
 The validation runs automatically on every push and pull request via GitHub Actions. The CI workflow:
+
 - Validates all JSON schema files using pytest
 - Double-checks JSON syntax using `jq`
 - Fails the build if any validation errors are found
 
 ## How to update a Schema
 
+### Generating schema files for Infrahub
+
 Generate the new schemas, using the invoke tool from the main [Infrahub repository](https://github.com/opsmill/infrahub).
 
 ```shell
 invoke schema.generate-jsonschema
+```
+
+### Generating schema files for Infrahub SDK
+
+Generate the new schemas, using the invoke tool from the [Infrahub SDK repository](https://github.com/opsmill/infrahub-sdk-python/).
+
+```shell
+invoke generate-repository-jsonschema
 ```
 
 The command will create files under ./generated that needs to be copied to the corresponding location within this repository. The latest develop.json files can be copied as is and for released versions you would name them as [release-number].json and update the symlink to latest.json for the given schema.
