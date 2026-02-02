@@ -11,4 +11,5 @@ dependencies = [
 dev = [
     "pytest>=7.4.0",
     "jsonschema>=4.17.0",
+    "pyyaml>=6.0",
 ]
