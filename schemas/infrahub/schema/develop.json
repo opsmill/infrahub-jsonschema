@@ -8,306 +8,9 @@
             "title": "AllowOverrideType",
             "type": "string"
         },
-        "AttributeParameters": {
-            "additionalProperties": false,
-            "properties": {
-                "id": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "title": "Id"
-                },
-                "state": {
-                    "$ref": "#/$defs/HashableModelState",
-                    "default": "present"
-                }
-            },
-            "title": "AttributeParameters",
-            "type": "object"
-        },
-        "AttributeSchema": {
-            "additionalProperties": false,
-            "properties": {
-                "id": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "description": "The ID of the attribute",
-                    "title": "Id",
-                    "update": "not_applicable"
-                },
-                "state": {
-                    "$ref": "#/$defs/HashableModelState",
-                    "default": "present",
-                    "description": "Expected state of the attribute after loading the schema",
-                    "update": "not_applicable"
-                },
-                "name": {
-                    "description": "Attribute name, must be unique within a model and must be all lowercase.",
-                    "maxLength": 64,
-                    "minLength": 3,
-                    "pattern": "^[a-z0-9\\_]+$",
-                    "title": "Name",
-                    "type": "string",
-                    "update": "migration_required"
-                },
-                "kind": {
-                    "description": "Defines the type of the attribute.",
-                    "title": "Kind",
-                    "type": "string",
-                    "update": "migration_required"
-                },
-                "enum": {
-                    "anyOf": [
-                        {
-                            "items": {},
-                            "type": "array"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "description": "Define a list of valid values for the attribute.",
-                    "title": "Enum",
-                    "update": "validate_constraint"
-                },
-                "computed_attribute": {
-                    "anyOf": [
-                        {
-                            "$ref": "#/$defs/ComputedAttribute"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "description": "Defines how the value of this attribute will be populated.",
-                    "update": "allowed"
-                },
-                "choices": {
-                    "anyOf": [
-                        {
-                            "items": {
-                                "$ref": "#/$defs/DropdownChoice"
-                            },
-                            "type": "array"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "description": "Define a list of valid choices for a dropdown attribute.",
-                    "title": "Choices",
-                    "update": "validate_constraint"
-                },
-                "regex": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "description": "Regex uses to limit the characters allowed in for the attributes. (deprecated: please use parameters.regex instead)",
-                    "title": "Regex",
-                    "update": "validate_constraint"
-                },
-                "max_length": {
-                    "anyOf": [
-                        {
-                            "type": "integer"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "description": "Set a maximum number of characters allowed for a given attribute. (deprecated: please use parameters.max_length instead)",
-                    "title": "Max Length",
-                    "update": "validate_constraint"
-                },
-                "min_length": {
-                    "anyOf": [
-                        {
-                            "type": "integer"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "description": "Set a minimum number of characters allowed for a given attribute. (deprecated: please use parameters.min_length instead)",
-                    "title": "Min Length",
-                    "update": "validate_constraint"
-                },
-                "label": {
-                    "anyOf": [
-                        {
-                            "maxLength": 64,
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "description": "Human friendly representation of the name. Will be autogenerated if not provided",
-                    "title": "Label",
-                    "update": "allowed"
-                },
-                "description": {
-                    "anyOf": [
-                        {
-                            "maxLength": 128,
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "description": "Short description of the attribute.",
-                    "title": "Description",
-                    "update": "allowed"
-                },
-                "read_only": {
-                    "default": false,
-                    "description": "Set the attribute as Read-Only, users won't be able to change its value. Mainly relevant for internal object.",
-                    "title": "Read Only",
-                    "type": "boolean",
-                    "update": "migration_required"
-                },
-                "unique": {
-                    "default": false,
-                    "description": "Indicate if the value of this attribute must be unique in the database for a given model.",
-                    "title": "Unique",
-                    "type": "boolean",
-                    "update": "migration_required"
-                },
-                "optional": {
-                    "default": false,
-                    "description": "Indicate if this attribute is mandatory or optional.",
-                    "title": "Optional",
-                    "type": "boolean",
-                    "update": "migration_required"
-                },
-                "branch": {
-                    "anyOf": [
-                        {
-                            "$ref": "#/$defs/BranchSupportType"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "description": "Type of branch support for the attribute, if not defined it will be inherited from the node.",
-                    "update": "not_supported"
-                },
-                "order_weight": {
-                    "anyOf": [
-                        {
-                            "type": "integer"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "description": "Number used to order the attribute in the frontend (table and view). Lowest value will be ordered first.",
-                    "title": "Order Weight",
-                    "update": "allowed"
-                },
-                "default_value": {
-                    "anyOf": [
-                        {},
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "description": "Default value of the attribute.",
-                    "title": "Default Value",
-                    "update": "allowed"
-                },
-                "inherited": {
-                    "default": false,
-                    "description": "Internal value to indicate if the attribute was inherited from a Generic node.",
-                    "title": "Inherited",
-                    "type": "boolean",
-                    "update": "not_applicable"
-                },
-                "allow_override": {
-                    "$ref": "#/$defs/AllowOverrideType",
-                    "default": "any",
-                    "description": "Type of allowed override for the attribute.",
-                    "update": "allowed"
-                },
-                "parameters": {
-                    "anyOf": [
-                        {
-                            "$ref": "#/$defs/AttributeParameters"
-                        },
-                        {
-                            "$ref": "#/$defs/ListAttributeParameters"
-                        },
-                        {
-                            "$ref": "#/$defs/TextAttributeParameters"
-                        },
-                        {
-                            "$ref": "#/$defs/NumberAttributeParameters"
-                        },
-                        {
-                            "$ref": "#/$defs/NumberPoolParameters"
-                        }
-                    ],
-                    "description": "Extra parameters specific to this kind of attribute",
-                    "title": "Parameters",
-                    "update": "validate_constraint"
-                },
-                "deprecation": {
-                    "anyOf": [
-                        {
-                            "maxLength": 128,
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "description": "Mark attribute as deprecated and provide a user-friendly message to display",
-                    "title": "Deprecation",
-                    "update": "allowed"
-                },
-                "display": {
-                    "$ref": "#/$defs/SchemaAttributeDisplay",
-                    "default": "default",
-                    "description": "Controls where the attribute is displayed. 'default' shows in the main view, 'extra' shows in an expanded/secondary section.",
-                    "update": "allowed"
-                }
-            },
-            "required": [
-                "name",
-                "kind"
-            ],
-            "title": "AttributeSchema",
+        "AttributeParametersWrite": {
+            "properties": {},
+            "title": "AttributeParametersWrite",
             "type": "object"
         },
         "BranchSupportType": {
@@ -319,132 +22,67 @@
             "title": "BranchSupportType",
             "type": "string"
         },
-        "ComputedAttribute": {
-            "additionalProperties": false,
-            "allOf": [
-                {
-                    "if": {
-                        "properties": {
-                            "kind": {
-                                "const": "Jinja2"
-                            }
-                        }
-                    },
-                    "then": {
-                        "properties": {
-                            "jinja2_template": {
-                                "minLength": 1,
-                                "type": "string"
-                            }
-                        },
-                        "required": [
-                            "jinja2_template"
-                        ]
-                    }
-                },
-                {
-                    "if": {
-                        "properties": {
-                            "kind": {
-                                "const": "TransformPython"
-                            }
-                        }
-                    },
-                    "then": {
-                        "properties": {
-                            "transform": {
-                                "minLength": 1,
-                                "type": "string"
-                            }
-                        },
-                        "required": [
-                            "transform"
-                        ]
-                    }
-                }
-            ],
+        "ComputedAttributeJinja2Write": {
             "properties": {
-                "id": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "title": "Id"
-                },
-                "state": {
-                    "$ref": "#/$defs/HashableModelState",
-                    "default": "present"
-                },
                 "kind": {
-                    "$ref": "#/$defs/ComputedAttributeKind"
+                    "const": "Jinja2",
+                    "description": "Defines how the value of the attribute is computed.",
+                    "title": "Kind",
+                    "type": "string"
                 },
                 "jinja2_template": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "description": "The Jinja2 template in string format, required when assignment_type=jinja2",
-                    "title": "Jinja2 Template"
+                    "description": "Jinja2 template used to compute the value, required when kind is Jinja2.",
+                    "title": "Jinja2 Template",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "kind",
+                "jinja2_template"
+            ],
+            "title": "ComputedAttributeJinja2Write",
+            "type": "object"
+        },
+        "ComputedAttributeTransformPythonWrite": {
+            "properties": {
+                "kind": {
+                    "const": "TransformPython",
+                    "description": "Defines how the value of the attribute is computed.",
+                    "title": "Kind",
+                    "type": "string"
                 },
                 "transform": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "description": "The Python Transform name or ID, required when assignment_type=transform",
-                    "title": "Transform"
+                    "description": "Python transform name or ID, required when kind is TransformPython.",
+                    "title": "Transform",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "kind",
+                "transform"
+            ],
+            "title": "ComputedAttributeTransformPythonWrite",
+            "type": "object"
+        },
+        "ComputedAttributeUserWrite": {
+            "properties": {
+                "kind": {
+                    "const": "User",
+                    "description": "Defines how the value of the attribute is computed.",
+                    "title": "Kind",
+                    "type": "string"
                 }
             },
             "required": [
                 "kind"
             ],
-            "title": "ComputedAttribute",
+            "title": "ComputedAttributeUserWrite",
             "type": "object"
         },
-        "ComputedAttributeKind": {
-            "enum": [
-                "User",
-                "Jinja2",
-                "TransformPython"
-            ],
-            "title": "ComputedAttributeKind",
-            "type": "string"
-        },
-        "DropdownChoice": {
-            "additionalProperties": false,
+        "DropdownChoiceWrite": {
             "properties": {
-                "id": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "title": "Id"
-                },
-                "state": {
-                    "$ref": "#/$defs/HashableModelState",
-                    "default": "present"
-                },
                 "name": {
+                    "description": "Name of the choice, must be unique within the dropdown.",
                     "title": "Name",
                     "type": "string"
                 },
@@ -458,11 +96,13 @@
                         }
                     ],
                     "default": null,
+                    "description": "Description of the choice.",
                     "title": "Description"
                 },
                 "color": {
                     "anyOf": [
                         {
+                            "pattern": "#[0-9a-fA-F]{6}\\b",
                             "type": "string"
                         },
                         {
@@ -470,6 +110,7 @@
                         }
                     ],
                     "default": null,
+                    "description": "Color of the choice, must be a valid HTML color code.",
                     "title": "Color"
                 },
                 "label": {
@@ -482,18 +123,302 @@
                         }
                     ],
                     "default": null,
+                    "description": "Human friendly representation of the choice.",
                     "title": "Label"
                 }
             },
             "required": [
                 "name"
             ],
-            "title": "DropdownChoice",
+            "title": "DropdownChoiceWrite",
             "type": "object"
         },
-        "GenericSchema": {
-            "additionalProperties": false,
-            "description": "A Generic can be either an Interface or a Union depending if there are some Attributes or Relationships defined.",
+        "GenericAttributeWrite": {
+            "properties": {
+                "id": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "The ID of the attribute",
+                    "title": "Id"
+                },
+                "name": {
+                    "description": "Attribute name, must be unique within a model and must be all lowercase.",
+                    "maxLength": 64,
+                    "minLength": 3,
+                    "pattern": "^[a-z0-9\\_]+$",
+                    "title": "Name",
+                    "type": "string"
+                },
+                "kind": {
+                    "description": "Defines the type of the attribute.",
+                    "enum": [
+                        "ID",
+                        "Dropdown",
+                        "DateTime",
+                        "Email",
+                        "Password",
+                        "HashedPassword",
+                        "URL",
+                        "File",
+                        "MacAddress",
+                        "Color",
+                        "Bandwidth",
+                        "IPHost",
+                        "IPNetwork",
+                        "IPAddress",
+                        "Boolean",
+                        "Checkbox",
+                        "JSON",
+                        "Any"
+                    ],
+                    "title": "Kind",
+                    "type": "string"
+                },
+                "enum": {
+                    "anyOf": [
+                        {
+                            "items": {},
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Define a list of valid values for the attribute.",
+                    "title": "Enum"
+                },
+                "computed_attribute": {
+                    "anyOf": [
+                        {
+                            "discriminator": {
+                                "mapping": {
+                                    "Jinja2": "#/$defs/ComputedAttributeJinja2Write",
+                                    "TransformPython": "#/$defs/ComputedAttributeTransformPythonWrite",
+                                    "User": "#/$defs/ComputedAttributeUserWrite"
+                                },
+                                "propertyName": "kind"
+                            },
+                            "oneOf": [
+                                {
+                                    "$ref": "#/$defs/ComputedAttributeUserWrite"
+                                },
+                                {
+                                    "$ref": "#/$defs/ComputedAttributeJinja2Write"
+                                },
+                                {
+                                    "$ref": "#/$defs/ComputedAttributeTransformPythonWrite"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Defines how the value of this attribute will be populated.",
+                    "title": "Computed Attribute"
+                },
+                "choices": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "$ref": "#/$defs/DropdownChoiceWrite"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Define a list of valid choices for a dropdown attribute.",
+                    "title": "Choices"
+                },
+                "regex": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Regex uses to limit the characters allowed in for the attributes. (deprecated: please use parameters.regex instead)",
+                    "title": "Regex"
+                },
+                "max_length": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Set a maximum number of characters allowed for a given attribute. (deprecated: please use parameters.max_length instead)",
+                    "title": "Max Length"
+                },
+                "min_length": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Set a minimum number of characters allowed for a given attribute. (deprecated: please use parameters.min_length instead)",
+                    "title": "Min Length"
+                },
+                "label": {
+                    "anyOf": [
+                        {
+                            "maxLength": 64,
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Human friendly representation of the name. Will be autogenerated if not provided",
+                    "title": "Label"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "maxLength": 128,
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Short description of the attribute.",
+                    "title": "Description"
+                },
+                "read_only": {
+                    "default": false,
+                    "description": "Set the attribute as Read-Only, users won't be able to change its value. Mainly relevant for internal object.",
+                    "title": "Read Only",
+                    "type": "boolean"
+                },
+                "unique": {
+                    "default": false,
+                    "description": "Indicate if the value of this attribute must be unique in the database for a given model.",
+                    "title": "Unique",
+                    "type": "boolean"
+                },
+                "optional": {
+                    "default": false,
+                    "description": "Indicate if this attribute is mandatory or optional.",
+                    "title": "Optional",
+                    "type": "boolean"
+                },
+                "branch": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/BranchSupportType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Type of branch support for the attribute, if not defined it will be inherited from the node."
+                },
+                "order_weight": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Number used to order the attribute in the frontend (table and view). Lowest value will be ordered first.",
+                    "title": "Order Weight"
+                },
+                "ordered": {
+                    "default": true,
+                    "description": "Whether element order is significant. When False, reordering a List or JSON-array attribute is not a merge/rebase conflict.",
+                    "title": "Ordered",
+                    "type": "boolean"
+                },
+                "default_value": {
+                    "anyOf": [
+                        {},
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Default value of the attribute.",
+                    "title": "Default Value"
+                },
+                "state": {
+                    "$ref": "#/$defs/SchemaState",
+                    "default": "present",
+                    "description": "Expected state of the attribute after loading the schema"
+                },
+                "allow_override": {
+                    "$ref": "#/$defs/AllowOverrideType",
+                    "default": "any",
+                    "description": "Type of allowed override for the attribute."
+                },
+                "deprecation": {
+                    "anyOf": [
+                        {
+                            "maxLength": 128,
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Mark attribute as deprecated and provide a user-friendly message to display",
+                    "title": "Deprecation"
+                },
+                "display": {
+                    "$ref": "#/$defs/SchemaAttributeDisplay",
+                    "default": "default",
+                    "description": "Controls where the attribute is displayed. 'default' shows in the main view, 'extra' shows in an expanded/secondary section."
+                },
+                "parameters": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/AttributeParametersWrite"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Extra parameters specific to this kind of attribute"
+                }
+            },
+            "required": [
+                "name",
+                "kind"
+            ],
+            "title": "GenericAttributeWrite",
+            "type": "object"
+        },
+        "GenericSchemaWrite": {
             "properties": {
                 "id": {
                     "anyOf": [
@@ -506,14 +431,7 @@
                     ],
                     "default": null,
                     "description": "The ID of the node",
-                    "title": "Id",
-                    "update": "not_applicable"
-                },
-                "state": {
-                    "$ref": "#/$defs/HashableModelState",
-                    "default": "present",
-                    "description": "Expected state of the node/generic after loading the schema",
-                    "update": "not_applicable"
+                    "title": "Id"
                 },
                 "name": {
                     "description": "Node name, must be unique within a namespace and must start with an uppercase letter.",
@@ -521,8 +439,7 @@
                     "minLength": 2,
                     "pattern": "^[A-Z][a-zA-Z0-9]+$",
                     "title": "Name",
-                    "type": "string",
-                    "update": "migration_required"
+                    "type": "string"
                 },
                 "namespace": {
                     "description": "Node Namespace, Namespaces are used to organize models into logical groups and to prevent name collisions.",
@@ -530,8 +447,7 @@
                     "minLength": 3,
                     "pattern": "^[A-Z][a-z0-9]+$",
                     "title": "Namespace",
-                    "type": "string",
-                    "update": "migration_required"
+                    "type": "string"
                 },
                 "description": {
                     "anyOf": [
@@ -545,8 +461,7 @@
                     ],
                     "default": null,
                     "description": "Short description of the model, will be visible in the frontend.",
-                    "title": "Description",
-                    "update": "allowed"
+                    "title": "Description"
                 },
                 "label": {
                     "anyOf": [
@@ -560,14 +475,12 @@
                     ],
                     "default": null,
                     "description": "Human friendly representation of the name/kind",
-                    "title": "Label",
-                    "update": "allowed"
+                    "title": "Label"
                 },
                 "branch": {
                     "$ref": "#/$defs/BranchSupportType",
                     "default": "aware",
-                    "description": "Type of branch support for the model.",
-                    "update": "not_supported"
+                    "description": "Type of branch support for the model."
                 },
                 "default_filter": {
                     "anyOf": [
@@ -581,8 +494,7 @@
                     ],
                     "default": null,
                     "description": "Default filter used to search for a node in addition to its ID. (deprecated: please use human_friendly_id instead)",
-                    "title": "Default Filter",
-                    "update": "allowed"
+                    "title": "Default Filter"
                 },
                 "human_friendly_id": {
                     "anyOf": [
@@ -598,8 +510,7 @@
                     ],
                     "default": null,
                     "description": "Human friendly and unique identifier for the object.",
-                    "title": "Human Friendly Id",
-                    "update": "allowed"
+                    "title": "Human Friendly Id"
                 },
                 "display_label": {
                     "anyOf": [
@@ -612,14 +523,12 @@
                     ],
                     "default": null,
                     "description": "Attribute or Jinja2 template to use to generate the display label",
-                    "title": "Display Label",
-                    "update": "allowed"
+                    "title": "Display Label"
                 },
                 "display_labels": {
                     "anyOf": [
                         {
                             "items": {
-                                "deprecationMessage": "display_labels are deprecated use display_label instead",
                                 "type": "string"
                             },
                             "type": "array"
@@ -630,8 +539,7 @@
                     ],
                     "default": null,
                     "description": "List of attributes to use to generate the display label (deprecated)",
-                    "title": "Display Labels",
-                    "update": "allowed"
+                    "title": "Display Labels"
                 },
                 "include_in_menu": {
                     "anyOf": [
@@ -644,8 +552,7 @@
                     ],
                     "default": null,
                     "description": "Defines if objects of this kind should be included in the menu.",
-                    "title": "Include In Menu",
-                    "update": "allowed"
+                    "title": "Include In Menu"
                 },
                 "menu_placement": {
                     "anyOf": [
@@ -658,8 +565,7 @@
                     ],
                     "default": null,
                     "description": "Defines where in the menu this object should be placed.",
-                    "title": "Menu Placement",
-                    "update": "allowed"
+                    "title": "Menu Placement"
                 },
                 "icon": {
                     "anyOf": [
@@ -672,8 +578,7 @@
                     ],
                     "default": null,
                     "description": "Defines the icon to use in the menu. Must be a valid value from the MDI library https://icon-sets.iconify.design/mdi/",
-                    "title": "Icon",
-                    "update": "allowed"
+                    "title": "Icon"
                 },
                 "order_by": {
                     "anyOf": [
@@ -689,8 +594,7 @@
                     ],
                     "default": null,
                     "description": "List of entries to order results by. Supports attributes, relationship attributes, and node_metadata with __asc/__desc.",
-                    "title": "Order By",
-                    "update": "allowed"
+                    "title": "Order By"
                 },
                 "uniqueness_constraints": {
                     "anyOf": [
@@ -709,8 +613,7 @@
                     ],
                     "default": null,
                     "description": "List of multi-element uniqueness constraints that can combine relationships and attributes",
-                    "title": "Uniqueness Constraints",
-                    "update": "migration_required"
+                    "title": "Uniqueness Constraints"
                 },
                 "documentation": {
                     "anyOf": [
@@ -723,49 +626,84 @@
                     ],
                     "default": null,
                     "description": "Link to a documentation associated with this object, can be internal or external.",
-                    "title": "Documentation",
-                    "update": "allowed"
+                    "title": "Documentation"
+                },
+                "state": {
+                    "$ref": "#/$defs/SchemaState",
+                    "default": "present",
+                    "description": "Expected state of the node/generic after loading the schema"
                 },
                 "attributes": {
                     "description": "Node attributes",
                     "items": {
-                        "$ref": "#/$defs/AttributeSchema"
+                        "discriminator": {
+                            "mapping": {
+                                "Any": "#/$defs/GenericAttributeWrite",
+                                "Bandwidth": "#/$defs/GenericAttributeWrite",
+                                "Boolean": "#/$defs/GenericAttributeWrite",
+                                "Checkbox": "#/$defs/GenericAttributeWrite",
+                                "Color": "#/$defs/GenericAttributeWrite",
+                                "DateTime": "#/$defs/GenericAttributeWrite",
+                                "Dropdown": "#/$defs/GenericAttributeWrite",
+                                "Email": "#/$defs/GenericAttributeWrite",
+                                "File": "#/$defs/GenericAttributeWrite",
+                                "HashedPassword": "#/$defs/GenericAttributeWrite",
+                                "ID": "#/$defs/GenericAttributeWrite",
+                                "IPAddress": "#/$defs/GenericAttributeWrite",
+                                "IPHost": "#/$defs/GenericAttributeWrite",
+                                "IPNetwork": "#/$defs/GenericAttributeWrite",
+                                "JSON": "#/$defs/GenericAttributeWrite",
+                                "List": "#/$defs/ListAttributeWrite",
+                                "MacAddress": "#/$defs/GenericAttributeWrite",
+                                "Number": "#/$defs/NumberAttributeWrite",
+                                "NumberPool": "#/$defs/NumberPoolAttributeWrite",
+                                "Password": "#/$defs/GenericAttributeWrite",
+                                "Text": "#/$defs/TextAttributeWrite",
+                                "TextArea": "#/$defs/TextAttributeWrite",
+                                "URL": "#/$defs/GenericAttributeWrite"
+                            },
+                            "propertyName": "kind"
+                        },
+                        "oneOf": [
+                            {
+                                "$ref": "#/$defs/TextAttributeWrite"
+                            },
+                            {
+                                "$ref": "#/$defs/NumberAttributeWrite"
+                            },
+                            {
+                                "$ref": "#/$defs/ListAttributeWrite"
+                            },
+                            {
+                                "$ref": "#/$defs/NumberPoolAttributeWrite"
+                            },
+                            {
+                                "$ref": "#/$defs/GenericAttributeWrite"
+                            }
+                        ]
                     },
                     "title": "Attributes",
-                    "type": "array",
-                    "update": "not_applicable"
+                    "type": "array"
                 },
                 "relationships": {
                     "description": "Node Relationships",
                     "items": {
-                        "$ref": "#/$defs/RelationshipSchema"
+                        "$ref": "#/$defs/RelationshipSchemaWrite"
                     },
                     "title": "Relationships",
-                    "type": "array",
-                    "update": "not_applicable"
+                    "type": "array"
                 },
                 "hierarchical": {
                     "default": false,
                     "description": "Defines if the Generic support the hierarchical mode.",
                     "title": "Hierarchical",
-                    "type": "boolean",
-                    "update": "validate_constraint"
+                    "type": "boolean"
                 },
                 "generate_profile": {
                     "default": true,
                     "description": "Indicate if a profile schema should be generated for this schema",
                     "title": "Generate Profile",
-                    "type": "boolean",
-                    "update": "validate_constraint"
-                },
-                "used_by": {
-                    "description": "List of Nodes that are referencing this Generic",
-                    "items": {
-                        "type": "string"
-                    },
-                    "title": "Used By",
-                    "type": "array",
-                    "update": "not_applicable"
+                    "type": "boolean"
                 },
                 "restricted_namespaces": {
                     "anyOf": [
@@ -781,45 +719,18 @@
                     ],
                     "default": null,
                     "description": "Nodes inheriting from this Generic schema must belong to one of the listed namespaces",
-                    "title": "Restricted Namespaces",
-                    "update": "allowed"
+                    "title": "Restricted Namespaces"
                 }
             },
             "required": [
                 "name",
                 "namespace"
             ],
-            "title": "GenericSchema",
+            "title": "GenericSchemaWrite",
             "type": "object"
         },
-        "HashableModelState": {
-            "enum": [
-                "present",
-                "absent"
-            ],
-            "title": "HashableModelState",
-            "type": "string"
-        },
-        "ListAttributeParameters": {
-            "additionalProperties": false,
-            "description": "Parameters for List attributes supporting regex validation on list items.",
+        "ListAttributeParametersWrite": {
             "properties": {
-                "id": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "title": "Id"
-                },
-                "state": {
-                    "$ref": "#/$defs/HashableModelState",
-                    "default": "present"
-                },
                 "regex": {
                     "anyOf": [
                         {
@@ -831,15 +742,13 @@
                     ],
                     "default": null,
                     "description": "Regular expression that each list item value must match if defined",
-                    "title": "Regex",
-                    "update": "validate_constraint"
+                    "title": "Regex"
                 }
             },
-            "title": "ListAttributeParameters",
+            "title": "ListAttributeParametersWrite",
             "type": "object"
         },
-        "NodeExtensionSchema": {
-            "additionalProperties": false,
+        "ListAttributeWrite": {
             "properties": {
                 "id": {
                     "anyOf": [
@@ -851,26 +760,323 @@
                         }
                     ],
                     "default": null,
+                    "description": "The ID of the attribute",
                     "title": "Id"
                 },
-                "state": {
-                    "$ref": "#/$defs/HashableModelState",
-                    "default": "present"
+                "name": {
+                    "description": "Attribute name, must be unique within a model and must be all lowercase.",
+                    "maxLength": 64,
+                    "minLength": 3,
+                    "pattern": "^[a-z0-9\\_]+$",
+                    "title": "Name",
+                    "type": "string"
                 },
                 "kind": {
+                    "const": "List",
+                    "description": "Defines the type of the attribute.",
+                    "title": "Kind",
+                    "type": "string"
+                },
+                "enum": {
+                    "anyOf": [
+                        {
+                            "items": {},
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Define a list of valid values for the attribute.",
+                    "title": "Enum"
+                },
+                "computed_attribute": {
+                    "anyOf": [
+                        {
+                            "discriminator": {
+                                "mapping": {
+                                    "Jinja2": "#/$defs/ComputedAttributeJinja2Write",
+                                    "TransformPython": "#/$defs/ComputedAttributeTransformPythonWrite",
+                                    "User": "#/$defs/ComputedAttributeUserWrite"
+                                },
+                                "propertyName": "kind"
+                            },
+                            "oneOf": [
+                                {
+                                    "$ref": "#/$defs/ComputedAttributeUserWrite"
+                                },
+                                {
+                                    "$ref": "#/$defs/ComputedAttributeJinja2Write"
+                                },
+                                {
+                                    "$ref": "#/$defs/ComputedAttributeTransformPythonWrite"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Defines how the value of this attribute will be populated.",
+                    "title": "Computed Attribute"
+                },
+                "choices": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "$ref": "#/$defs/DropdownChoiceWrite"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Define a list of valid choices for a dropdown attribute.",
+                    "title": "Choices"
+                },
+                "regex": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Regex uses to limit the characters allowed in for the attributes. (deprecated: please use parameters.regex instead)",
+                    "title": "Regex"
+                },
+                "max_length": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Set a maximum number of characters allowed for a given attribute. (deprecated: please use parameters.max_length instead)",
+                    "title": "Max Length"
+                },
+                "min_length": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Set a minimum number of characters allowed for a given attribute. (deprecated: please use parameters.min_length instead)",
+                    "title": "Min Length"
+                },
+                "label": {
+                    "anyOf": [
+                        {
+                            "maxLength": 64,
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Human friendly representation of the name. Will be autogenerated if not provided",
+                    "title": "Label"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "maxLength": 128,
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Short description of the attribute.",
+                    "title": "Description"
+                },
+                "read_only": {
+                    "default": false,
+                    "description": "Set the attribute as Read-Only, users won't be able to change its value. Mainly relevant for internal object.",
+                    "title": "Read Only",
+                    "type": "boolean"
+                },
+                "unique": {
+                    "default": false,
+                    "description": "Indicate if the value of this attribute must be unique in the database for a given model.",
+                    "title": "Unique",
+                    "type": "boolean"
+                },
+                "optional": {
+                    "default": false,
+                    "description": "Indicate if this attribute is mandatory or optional.",
+                    "title": "Optional",
+                    "type": "boolean"
+                },
+                "branch": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/BranchSupportType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Type of branch support for the attribute, if not defined it will be inherited from the node."
+                },
+                "order_weight": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Number used to order the attribute in the frontend (table and view). Lowest value will be ordered first.",
+                    "title": "Order Weight"
+                },
+                "ordered": {
+                    "default": true,
+                    "description": "Whether element order is significant. When False, reordering a List or JSON-array attribute is not a merge/rebase conflict.",
+                    "title": "Ordered",
+                    "type": "boolean"
+                },
+                "default_value": {
+                    "anyOf": [
+                        {},
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Default value of the attribute.",
+                    "title": "Default Value"
+                },
+                "state": {
+                    "$ref": "#/$defs/SchemaState",
+                    "default": "present",
+                    "description": "Expected state of the attribute after loading the schema"
+                },
+                "allow_override": {
+                    "$ref": "#/$defs/AllowOverrideType",
+                    "default": "any",
+                    "description": "Type of allowed override for the attribute."
+                },
+                "deprecation": {
+                    "anyOf": [
+                        {
+                            "maxLength": 128,
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Mark attribute as deprecated and provide a user-friendly message to display",
+                    "title": "Deprecation"
+                },
+                "display": {
+                    "$ref": "#/$defs/SchemaAttributeDisplay",
+                    "default": "default",
+                    "description": "Controls where the attribute is displayed. 'default' shows in the main view, 'extra' shows in an expanded/secondary section."
+                },
+                "parameters": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/ListAttributeParametersWrite"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Extra parameters specific to this kind of attribute"
+                }
+            },
+            "required": [
+                "name",
+                "kind"
+            ],
+            "title": "ListAttributeWrite",
+            "type": "object"
+        },
+        "NodeExtensionWrite": {
+            "properties": {
+                "kind": {
+                    "description": "Kind of the existing node to extend.",
                     "title": "Kind",
                     "type": "string"
                 },
                 "attributes": {
+                    "description": "Attributes to add to the existing node.",
                     "items": {
-                        "$ref": "#/$defs/AttributeSchema"
+                        "discriminator": {
+                            "mapping": {
+                                "Any": "#/$defs/GenericAttributeWrite",
+                                "Bandwidth": "#/$defs/GenericAttributeWrite",
+                                "Boolean": "#/$defs/GenericAttributeWrite",
+                                "Checkbox": "#/$defs/GenericAttributeWrite",
+                                "Color": "#/$defs/GenericAttributeWrite",
+                                "DateTime": "#/$defs/GenericAttributeWrite",
+                                "Dropdown": "#/$defs/GenericAttributeWrite",
+                                "Email": "#/$defs/GenericAttributeWrite",
+                                "File": "#/$defs/GenericAttributeWrite",
+                                "HashedPassword": "#/$defs/GenericAttributeWrite",
+                                "ID": "#/$defs/GenericAttributeWrite",
+                                "IPAddress": "#/$defs/GenericAttributeWrite",
+                                "IPHost": "#/$defs/GenericAttributeWrite",
+                                "IPNetwork": "#/$defs/GenericAttributeWrite",
+                                "JSON": "#/$defs/GenericAttributeWrite",
+                                "List": "#/$defs/ListAttributeWrite",
+                                "MacAddress": "#/$defs/GenericAttributeWrite",
+                                "Number": "#/$defs/NumberAttributeWrite",
+                                "NumberPool": "#/$defs/NumberPoolAttributeWrite",
+                                "Password": "#/$defs/GenericAttributeWrite",
+                                "Text": "#/$defs/TextAttributeWrite",
+                                "TextArea": "#/$defs/TextAttributeWrite",
+                                "URL": "#/$defs/GenericAttributeWrite"
+                            },
+                            "propertyName": "kind"
+                        },
+                        "oneOf": [
+                            {
+                                "$ref": "#/$defs/TextAttributeWrite"
+                            },
+                            {
+                                "$ref": "#/$defs/NumberAttributeWrite"
+                            },
+                            {
+                                "$ref": "#/$defs/ListAttributeWrite"
+                            },
+                            {
+                                "$ref": "#/$defs/NumberPoolAttributeWrite"
+                            },
+                            {
+                                "$ref": "#/$defs/GenericAttributeWrite"
+                            }
+                        ]
                     },
                     "title": "Attributes",
                     "type": "array"
                 },
                 "relationships": {
+                    "description": "Relationships to add to the existing node.",
                     "items": {
-                        "$ref": "#/$defs/RelationshipSchema"
+                        "$ref": "#/$defs/RelationshipSchemaWrite"
                     },
                     "title": "Relationships",
                     "type": "array"
@@ -879,11 +1085,10 @@
             "required": [
                 "kind"
             ],
-            "title": "NodeExtensionSchema",
+            "title": "NodeExtensionWrite",
             "type": "object"
         },
-        "NodeSchema": {
-            "additionalProperties": false,
+        "NodeSchemaWrite": {
             "properties": {
                 "id": {
                     "anyOf": [
@@ -896,14 +1101,7 @@
                     ],
                     "default": null,
                     "description": "The ID of the node",
-                    "title": "Id",
-                    "update": "not_applicable"
-                },
-                "state": {
-                    "$ref": "#/$defs/HashableModelState",
-                    "default": "present",
-                    "description": "Expected state of the node/generic after loading the schema",
-                    "update": "not_applicable"
+                    "title": "Id"
                 },
                 "name": {
                     "description": "Node name, must be unique within a namespace and must start with an uppercase letter.",
@@ -911,8 +1109,7 @@
                     "minLength": 2,
                     "pattern": "^[A-Z][a-zA-Z0-9]+$",
                     "title": "Name",
-                    "type": "string",
-                    "update": "migration_required"
+                    "type": "string"
                 },
                 "namespace": {
                     "description": "Node Namespace, Namespaces are used to organize models into logical groups and to prevent name collisions.",
@@ -920,8 +1117,7 @@
                     "minLength": 3,
                     "pattern": "^[A-Z][a-z0-9]+$",
                     "title": "Namespace",
-                    "type": "string",
-                    "update": "migration_required"
+                    "type": "string"
                 },
                 "description": {
                     "anyOf": [
@@ -935,8 +1131,7 @@
                     ],
                     "default": null,
                     "description": "Short description of the model, will be visible in the frontend.",
-                    "title": "Description",
-                    "update": "allowed"
+                    "title": "Description"
                 },
                 "label": {
                     "anyOf": [
@@ -950,14 +1145,12 @@
                     ],
                     "default": null,
                     "description": "Human friendly representation of the name/kind",
-                    "title": "Label",
-                    "update": "allowed"
+                    "title": "Label"
                 },
                 "branch": {
                     "$ref": "#/$defs/BranchSupportType",
                     "default": "aware",
-                    "description": "Type of branch support for the model.",
-                    "update": "not_supported"
+                    "description": "Type of branch support for the model."
                 },
                 "default_filter": {
                     "anyOf": [
@@ -971,8 +1164,7 @@
                     ],
                     "default": null,
                     "description": "Default filter used to search for a node in addition to its ID. (deprecated: please use human_friendly_id instead)",
-                    "title": "Default Filter",
-                    "update": "allowed"
+                    "title": "Default Filter"
                 },
                 "human_friendly_id": {
                     "anyOf": [
@@ -988,8 +1180,7 @@
                     ],
                     "default": null,
                     "description": "Human friendly and unique identifier for the object.",
-                    "title": "Human Friendly Id",
-                    "update": "allowed"
+                    "title": "Human Friendly Id"
                 },
                 "display_label": {
                     "anyOf": [
@@ -1002,14 +1193,12 @@
                     ],
                     "default": null,
                     "description": "Attribute or Jinja2 template to use to generate the display label",
-                    "title": "Display Label",
-                    "update": "allowed"
+                    "title": "Display Label"
                 },
                 "display_labels": {
                     "anyOf": [
                         {
                             "items": {
-                                "deprecationMessage": "display_labels are deprecated use display_label instead",
                                 "type": "string"
                             },
                             "type": "array"
@@ -1020,8 +1209,7 @@
                     ],
                     "default": null,
                     "description": "List of attributes to use to generate the display label (deprecated)",
-                    "title": "Display Labels",
-                    "update": "allowed"
+                    "title": "Display Labels"
                 },
                 "include_in_menu": {
                     "anyOf": [
@@ -1034,8 +1222,7 @@
                     ],
                     "default": null,
                     "description": "Defines if objects of this kind should be included in the menu.",
-                    "title": "Include In Menu",
-                    "update": "allowed"
+                    "title": "Include In Menu"
                 },
                 "menu_placement": {
                     "anyOf": [
@@ -1048,8 +1235,7 @@
                     ],
                     "default": null,
                     "description": "Defines where in the menu this object should be placed.",
-                    "title": "Menu Placement",
-                    "update": "allowed"
+                    "title": "Menu Placement"
                 },
                 "icon": {
                     "anyOf": [
@@ -1062,8 +1248,7 @@
                     ],
                     "default": null,
                     "description": "Defines the icon to use in the menu. Must be a valid value from the MDI library https://icon-sets.iconify.design/mdi/",
-                    "title": "Icon",
-                    "update": "allowed"
+                    "title": "Icon"
                 },
                 "order_by": {
                     "anyOf": [
@@ -1079,8 +1264,7 @@
                     ],
                     "default": null,
                     "description": "List of entries to order results by. Supports attributes, relationship attributes, and node_metadata with __asc/__desc.",
-                    "title": "Order By",
-                    "update": "allowed"
+                    "title": "Order By"
                 },
                 "uniqueness_constraints": {
                     "anyOf": [
@@ -1099,8 +1283,7 @@
                     ],
                     "default": null,
                     "description": "List of multi-element uniqueness constraints that can combine relationships and attributes",
-                    "title": "Uniqueness Constraints",
-                    "update": "migration_required"
+                    "title": "Uniqueness Constraints"
                 },
                 "documentation": {
                     "anyOf": [
@@ -1113,26 +1296,72 @@
                     ],
                     "default": null,
                     "description": "Link to a documentation associated with this object, can be internal or external.",
-                    "title": "Documentation",
-                    "update": "allowed"
+                    "title": "Documentation"
+                },
+                "state": {
+                    "$ref": "#/$defs/SchemaState",
+                    "default": "present",
+                    "description": "Expected state of the node/generic after loading the schema"
                 },
                 "attributes": {
                     "description": "Node attributes",
                     "items": {
-                        "$ref": "#/$defs/AttributeSchema"
+                        "discriminator": {
+                            "mapping": {
+                                "Any": "#/$defs/GenericAttributeWrite",
+                                "Bandwidth": "#/$defs/GenericAttributeWrite",
+                                "Boolean": "#/$defs/GenericAttributeWrite",
+                                "Checkbox": "#/$defs/GenericAttributeWrite",
+                                "Color": "#/$defs/GenericAttributeWrite",
+                                "DateTime": "#/$defs/GenericAttributeWrite",
+                                "Dropdown": "#/$defs/GenericAttributeWrite",
+                                "Email": "#/$defs/GenericAttributeWrite",
+                                "File": "#/$defs/GenericAttributeWrite",
+                                "HashedPassword": "#/$defs/GenericAttributeWrite",
+                                "ID": "#/$defs/GenericAttributeWrite",
+                                "IPAddress": "#/$defs/GenericAttributeWrite",
+                                "IPHost": "#/$defs/GenericAttributeWrite",
+                                "IPNetwork": "#/$defs/GenericAttributeWrite",
+                                "JSON": "#/$defs/GenericAttributeWrite",
+                                "List": "#/$defs/ListAttributeWrite",
+                                "MacAddress": "#/$defs/GenericAttributeWrite",
+                                "Number": "#/$defs/NumberAttributeWrite",
+                                "NumberPool": "#/$defs/NumberPoolAttributeWrite",
+                                "Password": "#/$defs/GenericAttributeWrite",
+                                "Text": "#/$defs/TextAttributeWrite",
+                                "TextArea": "#/$defs/TextAttributeWrite",
+                                "URL": "#/$defs/GenericAttributeWrite"
+                            },
+                            "propertyName": "kind"
+                        },
+                        "oneOf": [
+                            {
+                                "$ref": "#/$defs/TextAttributeWrite"
+                            },
+                            {
+                                "$ref": "#/$defs/NumberAttributeWrite"
+                            },
+                            {
+                                "$ref": "#/$defs/ListAttributeWrite"
+                            },
+                            {
+                                "$ref": "#/$defs/NumberPoolAttributeWrite"
+                            },
+                            {
+                                "$ref": "#/$defs/GenericAttributeWrite"
+                            }
+                        ]
                     },
                     "title": "Attributes",
-                    "type": "array",
-                    "update": "not_applicable"
+                    "type": "array"
                 },
                 "relationships": {
                     "description": "Node Relationships",
                     "items": {
-                        "$ref": "#/$defs/RelationshipSchema"
+                        "$ref": "#/$defs/RelationshipSchemaWrite"
                     },
                     "title": "Relationships",
-                    "type": "array",
-                    "update": "not_applicable"
+                    "type": "array"
                 },
                 "inherit_from": {
                     "description": "List of Generic Kind that this node is inheriting from",
@@ -1140,36 +1369,19 @@
                         "type": "string"
                     },
                     "title": "Inherit From",
-                    "type": "array",
-                    "update": "validate_constraint"
+                    "type": "array"
                 },
                 "generate_profile": {
                     "default": true,
                     "description": "Indicate if a profile schema should be generated for this schema",
                     "title": "Generate Profile",
-                    "type": "boolean",
-                    "update": "validate_constraint"
+                    "type": "boolean"
                 },
                 "generate_template": {
                     "default": false,
                     "description": "Indicate if an object template schema should be generated for this schema",
                     "title": "Generate Template",
-                    "type": "boolean",
-                    "update": "allowed"
-                },
-                "hierarchy": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "description": "Internal value to track the name of the Hierarchy, must match the name of a Generic supporting hierarchical mode",
-                    "title": "Hierarchy",
-                    "update": "validate_constraint"
+                    "type": "boolean"
                 },
                 "parent": {
                     "anyOf": [
@@ -1182,8 +1394,7 @@
                     ],
                     "default": null,
                     "description": "Expected Kind for the parent node in a Hierarchy, default to the main generic defined if not defined.",
-                    "title": "Parent",
-                    "update": "validate_constraint"
+                    "title": "Parent"
                 },
                 "children": {
                     "anyOf": [
@@ -1196,36 +1407,18 @@
                     ],
                     "default": null,
                     "description": "Expected Kind for the children nodes in a Hierarchy, default to the main generic defined if not defined.",
-                    "title": "Children",
-                    "update": "validate_constraint"
+                    "title": "Children"
                 }
             },
             "required": [
                 "name",
                 "namespace"
             ],
-            "title": "NodeSchema",
+            "title": "NodeSchemaWrite",
             "type": "object"
         },
-        "NumberAttributeParameters": {
-            "additionalProperties": false,
+        "NumberAttributeParametersWrite": {
             "properties": {
-                "id": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "title": "Id"
-                },
-                "state": {
-                    "$ref": "#/$defs/HashableModelState",
-                    "default": "present"
-                },
                 "min_value": {
                     "anyOf": [
                         {
@@ -1237,8 +1430,7 @@
                     ],
                     "default": null,
                     "description": "Set a minimum value allowed.",
-                    "title": "Min Value",
-                    "update": "validate_constraint"
+                    "title": "Min Value"
                 },
                 "max_value": {
                     "anyOf": [
@@ -1251,8 +1443,7 @@
                     ],
                     "default": null,
                     "description": "Set a maximum value allowed.",
-                    "title": "Max Value",
-                    "update": "validate_constraint"
+                    "title": "Max Value"
                 },
                 "excluded_values": {
                     "anyOf": [
@@ -1266,15 +1457,13 @@
                     ],
                     "default": null,
                     "description": "List of values or range of values not allowed for the attribute, format is: '100,150-200,280,300-400'",
-                    "title": "Excluded Values",
-                    "update": "validate_constraint"
+                    "title": "Excluded Values"
                 }
             },
-            "title": "NumberAttributeParameters",
+            "title": "NumberAttributeParametersWrite",
             "type": "object"
         },
-        "NumberPoolParameters": {
-            "additionalProperties": false,
+        "NumberAttributeWrite": {
             "properties": {
                 "id": {
                     "anyOf": [
@@ -1286,25 +1475,539 @@
                         }
                     ],
                     "default": null,
+                    "description": "The ID of the attribute",
                     "title": "Id"
                 },
-                "state": {
-                    "$ref": "#/$defs/HashableModelState",
-                    "default": "present"
+                "name": {
+                    "description": "Attribute name, must be unique within a model and must be all lowercase.",
+                    "maxLength": 64,
+                    "minLength": 3,
+                    "pattern": "^[a-z0-9\\_]+$",
+                    "title": "Name",
+                    "type": "string"
                 },
+                "kind": {
+                    "const": "Number",
+                    "description": "Defines the type of the attribute.",
+                    "title": "Kind",
+                    "type": "string"
+                },
+                "enum": {
+                    "anyOf": [
+                        {
+                            "items": {},
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Define a list of valid values for the attribute.",
+                    "title": "Enum"
+                },
+                "computed_attribute": {
+                    "anyOf": [
+                        {
+                            "discriminator": {
+                                "mapping": {
+                                    "Jinja2": "#/$defs/ComputedAttributeJinja2Write",
+                                    "TransformPython": "#/$defs/ComputedAttributeTransformPythonWrite",
+                                    "User": "#/$defs/ComputedAttributeUserWrite"
+                                },
+                                "propertyName": "kind"
+                            },
+                            "oneOf": [
+                                {
+                                    "$ref": "#/$defs/ComputedAttributeUserWrite"
+                                },
+                                {
+                                    "$ref": "#/$defs/ComputedAttributeJinja2Write"
+                                },
+                                {
+                                    "$ref": "#/$defs/ComputedAttributeTransformPythonWrite"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Defines how the value of this attribute will be populated.",
+                    "title": "Computed Attribute"
+                },
+                "choices": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "$ref": "#/$defs/DropdownChoiceWrite"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Define a list of valid choices for a dropdown attribute.",
+                    "title": "Choices"
+                },
+                "regex": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Regex uses to limit the characters allowed in for the attributes. (deprecated: please use parameters.regex instead)",
+                    "title": "Regex"
+                },
+                "max_length": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Set a maximum number of characters allowed for a given attribute. (deprecated: please use parameters.max_length instead)",
+                    "title": "Max Length"
+                },
+                "min_length": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Set a minimum number of characters allowed for a given attribute. (deprecated: please use parameters.min_length instead)",
+                    "title": "Min Length"
+                },
+                "label": {
+                    "anyOf": [
+                        {
+                            "maxLength": 64,
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Human friendly representation of the name. Will be autogenerated if not provided",
+                    "title": "Label"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "maxLength": 128,
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Short description of the attribute.",
+                    "title": "Description"
+                },
+                "read_only": {
+                    "default": false,
+                    "description": "Set the attribute as Read-Only, users won't be able to change its value. Mainly relevant for internal object.",
+                    "title": "Read Only",
+                    "type": "boolean"
+                },
+                "unique": {
+                    "default": false,
+                    "description": "Indicate if the value of this attribute must be unique in the database for a given model.",
+                    "title": "Unique",
+                    "type": "boolean"
+                },
+                "optional": {
+                    "default": false,
+                    "description": "Indicate if this attribute is mandatory or optional.",
+                    "title": "Optional",
+                    "type": "boolean"
+                },
+                "branch": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/BranchSupportType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Type of branch support for the attribute, if not defined it will be inherited from the node."
+                },
+                "order_weight": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Number used to order the attribute in the frontend (table and view). Lowest value will be ordered first.",
+                    "title": "Order Weight"
+                },
+                "ordered": {
+                    "default": true,
+                    "description": "Whether element order is significant. When False, reordering a List or JSON-array attribute is not a merge/rebase conflict.",
+                    "title": "Ordered",
+                    "type": "boolean"
+                },
+                "default_value": {
+                    "anyOf": [
+                        {},
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Default value of the attribute.",
+                    "title": "Default Value"
+                },
+                "state": {
+                    "$ref": "#/$defs/SchemaState",
+                    "default": "present",
+                    "description": "Expected state of the attribute after loading the schema"
+                },
+                "allow_override": {
+                    "$ref": "#/$defs/AllowOverrideType",
+                    "default": "any",
+                    "description": "Type of allowed override for the attribute."
+                },
+                "deprecation": {
+                    "anyOf": [
+                        {
+                            "maxLength": 128,
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Mark attribute as deprecated and provide a user-friendly message to display",
+                    "title": "Deprecation"
+                },
+                "display": {
+                    "$ref": "#/$defs/SchemaAttributeDisplay",
+                    "default": "default",
+                    "description": "Controls where the attribute is displayed. 'default' shows in the main view, 'extra' shows in an expanded/secondary section."
+                },
+                "parameters": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/NumberAttributeParametersWrite"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Extra parameters specific to this kind of attribute"
+                }
+            },
+            "required": [
+                "name",
+                "kind"
+            ],
+            "title": "NumberAttributeWrite",
+            "type": "object"
+        },
+        "NumberPoolAttributeWrite": {
+            "properties": {
+                "id": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "The ID of the attribute",
+                    "title": "Id"
+                },
+                "name": {
+                    "description": "Attribute name, must be unique within a model and must be all lowercase.",
+                    "maxLength": 64,
+                    "minLength": 3,
+                    "pattern": "^[a-z0-9\\_]+$",
+                    "title": "Name",
+                    "type": "string"
+                },
+                "kind": {
+                    "const": "NumberPool",
+                    "description": "Defines the type of the attribute.",
+                    "title": "Kind",
+                    "type": "string"
+                },
+                "enum": {
+                    "anyOf": [
+                        {
+                            "items": {},
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Define a list of valid values for the attribute.",
+                    "title": "Enum"
+                },
+                "computed_attribute": {
+                    "anyOf": [
+                        {
+                            "discriminator": {
+                                "mapping": {
+                                    "Jinja2": "#/$defs/ComputedAttributeJinja2Write",
+                                    "TransformPython": "#/$defs/ComputedAttributeTransformPythonWrite",
+                                    "User": "#/$defs/ComputedAttributeUserWrite"
+                                },
+                                "propertyName": "kind"
+                            },
+                            "oneOf": [
+                                {
+                                    "$ref": "#/$defs/ComputedAttributeUserWrite"
+                                },
+                                {
+                                    "$ref": "#/$defs/ComputedAttributeJinja2Write"
+                                },
+                                {
+                                    "$ref": "#/$defs/ComputedAttributeTransformPythonWrite"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Defines how the value of this attribute will be populated.",
+                    "title": "Computed Attribute"
+                },
+                "choices": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "$ref": "#/$defs/DropdownChoiceWrite"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Define a list of valid choices for a dropdown attribute.",
+                    "title": "Choices"
+                },
+                "regex": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Regex uses to limit the characters allowed in for the attributes. (deprecated: please use parameters.regex instead)",
+                    "title": "Regex"
+                },
+                "max_length": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Set a maximum number of characters allowed for a given attribute. (deprecated: please use parameters.max_length instead)",
+                    "title": "Max Length"
+                },
+                "min_length": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Set a minimum number of characters allowed for a given attribute. (deprecated: please use parameters.min_length instead)",
+                    "title": "Min Length"
+                },
+                "label": {
+                    "anyOf": [
+                        {
+                            "maxLength": 64,
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Human friendly representation of the name. Will be autogenerated if not provided",
+                    "title": "Label"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "maxLength": 128,
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Short description of the attribute.",
+                    "title": "Description"
+                },
+                "read_only": {
+                    "default": false,
+                    "description": "Set the attribute as Read-Only, users won't be able to change its value. Mainly relevant for internal object.",
+                    "title": "Read Only",
+                    "type": "boolean"
+                },
+                "unique": {
+                    "default": false,
+                    "description": "Indicate if the value of this attribute must be unique in the database for a given model.",
+                    "title": "Unique",
+                    "type": "boolean"
+                },
+                "optional": {
+                    "default": false,
+                    "description": "Indicate if this attribute is mandatory or optional.",
+                    "title": "Optional",
+                    "type": "boolean"
+                },
+                "branch": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/BranchSupportType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Type of branch support for the attribute, if not defined it will be inherited from the node."
+                },
+                "order_weight": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Number used to order the attribute in the frontend (table and view). Lowest value will be ordered first.",
+                    "title": "Order Weight"
+                },
+                "ordered": {
+                    "default": true,
+                    "description": "Whether element order is significant. When False, reordering a List or JSON-array attribute is not a merge/rebase conflict.",
+                    "title": "Ordered",
+                    "type": "boolean"
+                },
+                "default_value": {
+                    "anyOf": [
+                        {},
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Default value of the attribute.",
+                    "title": "Default Value"
+                },
+                "state": {
+                    "$ref": "#/$defs/SchemaState",
+                    "default": "present",
+                    "description": "Expected state of the attribute after loading the schema"
+                },
+                "allow_override": {
+                    "$ref": "#/$defs/AllowOverrideType",
+                    "default": "any",
+                    "description": "Type of allowed override for the attribute."
+                },
+                "deprecation": {
+                    "anyOf": [
+                        {
+                            "maxLength": 128,
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Mark attribute as deprecated and provide a user-friendly message to display",
+                    "title": "Deprecation"
+                },
+                "display": {
+                    "$ref": "#/$defs/SchemaAttributeDisplay",
+                    "default": "default",
+                    "description": "Controls where the attribute is displayed. 'default' shows in the main view, 'extra' shows in an expanded/secondary section."
+                },
+                "parameters": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/NumberPoolParametersWrite"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Extra parameters specific to this kind of attribute"
+                }
+            },
+            "required": [
+                "name",
+                "kind"
+            ],
+            "title": "NumberPoolAttributeWrite",
+            "type": "object"
+        },
+        "NumberPoolParametersWrite": {
+            "properties": {
                 "end_range": {
                     "default": 9223372036854775807,
                     "description": "End range for numbers for the associated NumberPool",
                     "title": "End Range",
-                    "type": "integer",
-                    "update": "validate_constraint"
+                    "type": "integer"
                 },
                 "start_range": {
                     "default": 1,
                     "description": "Start range for numbers for the associated NumberPool",
                     "title": "Start Range",
-                    "type": "integer",
-                    "update": "validate_constraint"
+                    "type": "integer"
                 },
                 "number_pool_id": {
                     "anyOf": [
@@ -1317,11 +2020,10 @@
                     ],
                     "default": null,
                     "description": "The ID of the numberpool associated with this attribute. Only set after the number pool has been provisioned.",
-                    "title": "Number Pool Id",
-                    "update": "not_supported"
+                    "title": "Number Pool Id"
                 }
             },
-            "title": "NumberPoolParameters",
+            "title": "NumberPoolParametersWrite",
             "type": "object"
         },
         "RelationshipCardinality": {
@@ -1363,8 +2065,7 @@
             "title": "RelationshipKind",
             "type": "string"
         },
-        "RelationshipSchema": {
-            "additionalProperties": false,
+        "RelationshipSchemaWrite": {
             "properties": {
                 "id": {
                     "anyOf": [
@@ -1377,14 +2078,7 @@
                     ],
                     "default": null,
                     "description": "The ID of the relationship schema",
-                    "title": "Id",
-                    "update": "not_applicable"
-                },
-                "state": {
-                    "$ref": "#/$defs/HashableModelState",
-                    "default": "present",
-                    "description": "Expected state of the relationship after loading the schema",
-                    "update": "not_applicable"
+                    "title": "Id"
                 },
                 "name": {
                     "description": "Relationship name, must be unique within a model and must be all lowercase.",
@@ -1392,21 +2086,18 @@
                     "minLength": 3,
                     "pattern": "^[a-z0-9\\_]+$",
                     "title": "Name",
-                    "type": "string",
-                    "update": "allowed"
+                    "type": "string"
                 },
                 "peer": {
                     "description": "Type (kind) of objects supported on the other end of the relationship.",
                     "pattern": "^[A-Z][a-zA-Z0-9]+$",
                     "title": "Peer",
-                    "type": "string",
-                    "update": "validate_constraint"
+                    "type": "string"
                 },
                 "kind": {
                     "$ref": "#/$defs/RelationshipKind",
                     "default": "Generic",
-                    "description": "Defines the type of the relationship.",
-                    "update": "allowed"
+                    "description": "Defines the type of the relationship."
                 },
                 "label": {
                     "anyOf": [
@@ -1420,8 +2111,7 @@
                     ],
                     "default": null,
                     "description": "Human friendly representation of the name. Will be autogenerated if not provided",
-                    "title": "Label",
-                    "update": "allowed"
+                    "title": "Label"
                 },
                 "description": {
                     "anyOf": [
@@ -1435,8 +2125,7 @@
                     ],
                     "default": null,
                     "description": "Short description of the relationship.",
-                    "title": "Description",
-                    "update": "allowed"
+                    "title": "Description"
                 },
                 "identifier": {
                     "anyOf": [
@@ -1451,28 +2140,24 @@
                     ],
                     "default": null,
                     "description": "Unique identifier of the relationship within a model, identifiers must match to traverse a relationship on both direction.",
-                    "title": "Identifier",
-                    "update": "allowed"
+                    "title": "Identifier"
                 },
                 "cardinality": {
                     "$ref": "#/$defs/RelationshipCardinality",
                     "default": "many",
-                    "description": "Defines how many objects are expected on the other side of the relationship.",
-                    "update": "validate_constraint"
+                    "description": "Defines how many objects are expected on the other side of the relationship."
                 },
                 "min_count": {
                     "default": 0,
                     "description": "Defines the minimum objects allowed on the other side of the relationship.",
                     "title": "Min Count",
-                    "type": "integer",
-                    "update": "validate_constraint"
+                    "type": "integer"
                 },
                 "max_count": {
                     "default": 0,
                     "description": "Defines the maximum objects allowed on the other side of the relationship.",
                     "title": "Max Count",
-                    "type": "integer",
-                    "update": "validate_constraint"
+                    "type": "integer"
                 },
                 "common_parent": {
                     "anyOf": [
@@ -1485,8 +2170,7 @@
                     ],
                     "default": null,
                     "description": "Name of a parent relationship on the peer schema that must share the same related object with the object's parent.",
-                    "title": "Common Parent",
-                    "update": "validate_constraint"
+                    "title": "Common Parent"
                 },
                 "common_relatives": {
                     "anyOf": [
@@ -1502,8 +2186,7 @@
                     ],
                     "default": null,
                     "description": "List of relationship names on the peer schema for which all objects must share the same set of peers.",
-                    "title": "Common Relatives",
-                    "update": "allowed"
+                    "title": "Common Relatives"
                 },
                 "order_weight": {
                     "anyOf": [
@@ -1516,15 +2199,13 @@
                     ],
                     "default": null,
                     "description": "Number used to order the relationship in the frontend (table and view). Lowest value will be ordered first.",
-                    "title": "Order Weight",
-                    "update": "allowed"
+                    "title": "Order Weight"
                 },
                 "optional": {
                     "default": true,
                     "description": "Indicate if this relationship is mandatory or optional.",
                     "title": "Optional",
-                    "type": "boolean",
-                    "update": "validate_constraint"
+                    "type": "boolean"
                 },
                 "branch": {
                     "anyOf": [
@@ -1536,35 +2217,17 @@
                         }
                     ],
                     "default": null,
-                    "description": "Type of branch support for the relationship. If not defined, it will be determined based on both peers.",
-                    "update": "not_supported"
-                },
-                "inherited": {
-                    "default": false,
-                    "description": "Internal value to indicate if the relationship was inherited from a Generic node.",
-                    "title": "Inherited",
-                    "type": "boolean",
-                    "update": "not_applicable"
+                    "description": "Type of branch support for the relationship. If not defined, it will be determined based on both peers."
                 },
                 "direction": {
                     "$ref": "#/$defs/RelationshipDirection",
                     "default": "bidirectional",
-                    "description": "Defines the direction of the relationship,  Unidirectional relationship are required when the same model is on both side.",
-                    "update": "not_supported"
+                    "description": "Defines the direction of the relationship,  Unidirectional relationship are required when the same model is on both side."
                 },
-                "hierarchical": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "description": "Internal attribute to track the type of hierarchy this relationship is part of, must match a valid Generic Kind",
-                    "title": "Hierarchical",
-                    "update": "not_supported"
+                "state": {
+                    "$ref": "#/$defs/SchemaState",
+                    "default": "present",
+                    "description": "Expected state of the relationship after loading the schema"
                 },
                 "on_delete": {
                     "anyOf": [
@@ -1576,21 +2239,18 @@
                         }
                     ],
                     "default": null,
-                    "description": "Default is no-action. If cascade, related node(s) are deleted when this node is deleted.",
-                    "update": "allowed"
+                    "description": "Default is no-action. If cascade, related node(s) are deleted when this node is deleted."
                 },
                 "allow_override": {
                     "$ref": "#/$defs/AllowOverrideType",
                     "default": "any",
-                    "description": "Type of allowed override for the relationship.",
-                    "update": "allowed"
+                    "description": "Type of allowed override for the relationship."
                 },
                 "read_only": {
                     "default": false,
                     "description": "Set the relationship as read-only, users won't be able to change its value.",
                     "title": "Read Only",
-                    "type": "boolean",
-                    "update": "allowed"
+                    "type": "boolean"
                 },
                 "deprecation": {
                     "anyOf": [
@@ -1604,21 +2264,19 @@
                     ],
                     "default": null,
                     "description": "Mark relationship as deprecated and provide a user-friendly message to display",
-                    "title": "Deprecation",
-                    "update": "allowed"
+                    "title": "Deprecation"
                 },
                 "display": {
                     "$ref": "#/$defs/SchemaAttributeDisplay",
                     "default": "default",
-                    "description": "Controls where the relationship is displayed. 'default' shows in the main view, 'extra' shows in an expanded/secondary section.",
-                    "update": "allowed"
+                    "description": "Controls where the relationship is displayed. 'default' shows in the main view, 'extra' shows in an expanded/secondary section."
                 }
             },
             "required": [
                 "name",
                 "peer"
             ],
-            "title": "RelationshipSchema",
+            "title": "RelationshipSchemaWrite",
             "type": "object"
         },
         "SchemaAttributeDisplay": {
@@ -1629,55 +2287,30 @@
             "title": "SchemaAttributeDisplay",
             "type": "string"
         },
-        "SchemaExtension": {
-            "additionalProperties": false,
+        "SchemaExtensionWrite": {
             "properties": {
-                "id": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "title": "Id"
-                },
-                "state": {
-                    "$ref": "#/$defs/HashableModelState",
-                    "default": "present"
-                },
                 "nodes": {
+                    "description": "Nodes to extend with additional attributes and relationships.",
                     "items": {
-                        "$ref": "#/$defs/NodeExtensionSchema"
+                        "$ref": "#/$defs/NodeExtensionWrite"
                     },
                     "title": "Nodes",
                     "type": "array"
                 }
             },
-            "title": "SchemaExtension",
+            "title": "SchemaExtensionWrite",
             "type": "object"
         },
-        "TextAttributeParameters": {
-            "additionalProperties": false,
+        "SchemaState": {
+            "enum": [
+                "present",
+                "absent"
+            ],
+            "title": "SchemaState",
+            "type": "string"
+        },
+        "TextAttributeParametersWrite": {
             "properties": {
-                "id": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "title": "Id"
-                },
-                "state": {
-                    "$ref": "#/$defs/HashableModelState",
-                    "default": "present"
-                },
                 "regex": {
                     "anyOf": [
                         {
@@ -1689,8 +2322,7 @@
                     ],
                     "default": null,
                     "description": "Regular expression that attribute value must match if defined",
-                    "title": "Regex",
-                    "update": "validate_constraint"
+                    "title": "Regex"
                 },
                 "min_length": {
                     "anyOf": [
@@ -1703,8 +2335,7 @@
                     ],
                     "default": null,
                     "description": "Set a minimum number of characters allowed.",
-                    "title": "Min Length",
-                    "update": "validate_constraint"
+                    "title": "Min Length"
                 },
                 "max_length": {
                     "anyOf": [
@@ -1717,41 +2348,311 @@
                     ],
                     "default": null,
                     "description": "Set a maximum number of characters allowed.",
-                    "title": "Max Length",
-                    "update": "validate_constraint"
+                    "title": "Max Length"
                 }
             },
-            "title": "TextAttributeParameters",
+            "title": "TextAttributeParametersWrite",
+            "type": "object"
+        },
+        "TextAttributeWrite": {
+            "properties": {
+                "id": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "The ID of the attribute",
+                    "title": "Id"
+                },
+                "name": {
+                    "description": "Attribute name, must be unique within a model and must be all lowercase.",
+                    "maxLength": 64,
+                    "minLength": 3,
+                    "pattern": "^[a-z0-9\\_]+$",
+                    "title": "Name",
+                    "type": "string"
+                },
+                "kind": {
+                    "description": "Defines the type of the attribute.",
+                    "enum": [
+                        "Text",
+                        "TextArea"
+                    ],
+                    "title": "Kind",
+                    "type": "string"
+                },
+                "enum": {
+                    "anyOf": [
+                        {
+                            "items": {},
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Define a list of valid values for the attribute.",
+                    "title": "Enum"
+                },
+                "computed_attribute": {
+                    "anyOf": [
+                        {
+                            "discriminator": {
+                                "mapping": {
+                                    "Jinja2": "#/$defs/ComputedAttributeJinja2Write",
+                                    "TransformPython": "#/$defs/ComputedAttributeTransformPythonWrite",
+                                    "User": "#/$defs/ComputedAttributeUserWrite"
+                                },
+                                "propertyName": "kind"
+                            },
+                            "oneOf": [
+                                {
+                                    "$ref": "#/$defs/ComputedAttributeUserWrite"
+                                },
+                                {
+                                    "$ref": "#/$defs/ComputedAttributeJinja2Write"
+                                },
+                                {
+                                    "$ref": "#/$defs/ComputedAttributeTransformPythonWrite"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Defines how the value of this attribute will be populated.",
+                    "title": "Computed Attribute"
+                },
+                "choices": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "$ref": "#/$defs/DropdownChoiceWrite"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Define a list of valid choices for a dropdown attribute.",
+                    "title": "Choices"
+                },
+                "regex": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Regex uses to limit the characters allowed in for the attributes. (deprecated: please use parameters.regex instead)",
+                    "title": "Regex"
+                },
+                "max_length": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Set a maximum number of characters allowed for a given attribute. (deprecated: please use parameters.max_length instead)",
+                    "title": "Max Length"
+                },
+                "min_length": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Set a minimum number of characters allowed for a given attribute. (deprecated: please use parameters.min_length instead)",
+                    "title": "Min Length"
+                },
+                "label": {
+                    "anyOf": [
+                        {
+                            "maxLength": 64,
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Human friendly representation of the name. Will be autogenerated if not provided",
+                    "title": "Label"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "maxLength": 128,
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Short description of the attribute.",
+                    "title": "Description"
+                },
+                "read_only": {
+                    "default": false,
+                    "description": "Set the attribute as Read-Only, users won't be able to change its value. Mainly relevant for internal object.",
+                    "title": "Read Only",
+                    "type": "boolean"
+                },
+                "unique": {
+                    "default": false,
+                    "description": "Indicate if the value of this attribute must be unique in the database for a given model.",
+                    "title": "Unique",
+                    "type": "boolean"
+                },
+                "optional": {
+                    "default": false,
+                    "description": "Indicate if this attribute is mandatory or optional.",
+                    "title": "Optional",
+                    "type": "boolean"
+                },
+                "branch": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/BranchSupportType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Type of branch support for the attribute, if not defined it will be inherited from the node."
+                },
+                "order_weight": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Number used to order the attribute in the frontend (table and view). Lowest value will be ordered first.",
+                    "title": "Order Weight"
+                },
+                "ordered": {
+                    "default": true,
+                    "description": "Whether element order is significant. When False, reordering a List or JSON-array attribute is not a merge/rebase conflict.",
+                    "title": "Ordered",
+                    "type": "boolean"
+                },
+                "default_value": {
+                    "anyOf": [
+                        {},
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Default value of the attribute.",
+                    "title": "Default Value"
+                },
+                "state": {
+                    "$ref": "#/$defs/SchemaState",
+                    "default": "present",
+                    "description": "Expected state of the attribute after loading the schema"
+                },
+                "allow_override": {
+                    "$ref": "#/$defs/AllowOverrideType",
+                    "default": "any",
+                    "description": "Type of allowed override for the attribute."
+                },
+                "deprecation": {
+                    "anyOf": [
+                        {
+                            "maxLength": 128,
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Mark attribute as deprecated and provide a user-friendly message to display",
+                    "title": "Deprecation"
+                },
+                "display": {
+                    "$ref": "#/$defs/SchemaAttributeDisplay",
+                    "default": "default",
+                    "description": "Controls where the attribute is displayed. 'default' shows in the main view, 'extra' shows in an expanded/secondary section."
+                },
+                "parameters": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/TextAttributeParametersWrite"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Extra parameters specific to this kind of attribute"
+                }
+            },
+            "required": [
+                "name",
+                "kind"
+            ],
+            "title": "TextAttributeWrite",
             "type": "object"
         }
     },
-    "additionalProperties": false,
     "properties": {
         "version": {
             "title": "Version",
             "type": "string"
         },
-        "generics": {
-            "items": {
-                "$ref": "#/$defs/GenericSchema"
-            },
-            "title": "Generics",
-            "type": "array"
-        },
         "nodes": {
             "items": {
-                "$ref": "#/$defs/NodeSchema"
+                "$ref": "#/$defs/NodeSchemaWrite"
             },
             "title": "Nodes",
             "type": "array"
         },
+        "generics": {
+            "items": {
+                "$ref": "#/$defs/GenericSchemaWrite"
+            },
+            "title": "Generics",
+            "type": "array"
+        },
         "extensions": {
-            "$ref": "#/$defs/SchemaExtension",
-            "default": {
-                "id": null,
-                "state": "present",
-                "nodes": []
-            }
+            "anyOf": [
+                {
+                    "$ref": "#/$defs/SchemaExtensionWrite"
+                },
+                {
+                    "type": "null"
+                }
+            ],
+            "default": null
         }
     },
     "required": [
