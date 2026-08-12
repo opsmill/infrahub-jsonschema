@@ -9,9 +9,21 @@
             "type": "string"
         },
         "AttributeParametersWrite": {
-            "properties": {},
+            "properties": {
+                "id": {
+                    "description": "'id' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'id' is a read-only field, the submitted value is ignored"
+                },
+                "state": {
+                    "description": "'state' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'state' is a read-only field, the submitted value is ignored"
+                }
+            },
             "title": "AttributeParametersWrite",
-            "type": "object"
+            "type": "object",
+            "additionalProperties": false
         },
         "BranchSupportType": {
             "enum": [
@@ -34,6 +46,21 @@
                     "description": "Jinja2 template used to compute the value, required when kind is Jinja2.",
                     "title": "Jinja2 Template",
                     "type": "string"
+                },
+                "id": {
+                    "description": "'id' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'id' is a read-only field, the submitted value is ignored"
+                },
+                "state": {
+                    "description": "'state' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'state' is a read-only field, the submitted value is ignored"
+                },
+                "transform": {
+                    "description": "'transform' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'transform' is a read-only field, the submitted value is ignored"
                 }
             },
             "required": [
@@ -41,7 +68,8 @@
                 "jinja2_template"
             ],
             "title": "ComputedAttributeJinja2Write",
-            "type": "object"
+            "type": "object",
+            "additionalProperties": false
         },
         "ComputedAttributeTransformPythonWrite": {
             "properties": {
@@ -55,6 +83,21 @@
                     "description": "Python transform name or ID, required when kind is TransformPython.",
                     "title": "Transform",
                     "type": "string"
+                },
+                "id": {
+                    "description": "'id' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'id' is a read-only field, the submitted value is ignored"
+                },
+                "jinja2_template": {
+                    "description": "'jinja2_template' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'jinja2_template' is a read-only field, the submitted value is ignored"
+                },
+                "state": {
+                    "description": "'state' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'state' is a read-only field, the submitted value is ignored"
                 }
             },
             "required": [
@@ -62,7 +105,8 @@
                 "transform"
             ],
             "title": "ComputedAttributeTransformPythonWrite",
-            "type": "object"
+            "type": "object",
+            "additionalProperties": false
         },
         "ComputedAttributeUserWrite": {
             "properties": {
@@ -71,13 +115,34 @@
                     "description": "Defines how the value of the attribute is computed.",
                     "title": "Kind",
                     "type": "string"
+                },
+                "id": {
+                    "description": "'id' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'id' is a read-only field, the submitted value is ignored"
+                },
+                "jinja2_template": {
+                    "description": "'jinja2_template' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'jinja2_template' is a read-only field, the submitted value is ignored"
+                },
+                "state": {
+                    "description": "'state' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'state' is a read-only field, the submitted value is ignored"
+                },
+                "transform": {
+                    "description": "'transform' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'transform' is a read-only field, the submitted value is ignored"
                 }
             },
             "required": [
                 "kind"
             ],
             "title": "ComputedAttributeUserWrite",
-            "type": "object"
+            "type": "object",
+            "additionalProperties": false
         },
         "DropdownChoiceWrite": {
             "properties": {
@@ -125,13 +190,24 @@
                     "default": null,
                     "description": "Human friendly representation of the choice.",
                     "title": "Label"
+                },
+                "id": {
+                    "description": "'id' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'id' is a read-only field, the submitted value is ignored"
+                },
+                "state": {
+                    "description": "'state' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'state' is a read-only field, the submitted value is ignored"
                 }
             },
             "required": [
                 "name"
             ],
             "title": "DropdownChoiceWrite",
-            "type": "object"
+            "type": "object",
+            "additionalProperties": false
         },
         "GenericAttributeWrite": {
             "properties": {
@@ -409,6 +485,11 @@
                     ],
                     "default": null,
                     "description": "Extra parameters specific to this kind of attribute"
+                },
+                "inherited": {
+                    "description": "'inherited' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'inherited' is a read-only field, the submitted value is ignored"
                 }
             },
             "required": [
@@ -416,7 +497,8 @@
                 "kind"
             ],
             "title": "GenericAttributeWrite",
-            "type": "object"
+            "type": "object",
+            "additionalProperties": false
         },
         "GenericSchemaWrite": {
             "properties": {
@@ -539,7 +621,9 @@
                     ],
                     "default": null,
                     "description": "List of attributes to use to generate the display label (deprecated)",
-                    "title": "Display Labels"
+                    "title": "Display Labels",
+                    "deprecated": true,
+                    "deprecationMessage": "display_labels are deprecated use display_label instead"
                 },
                 "include_in_menu": {
                     "anyOf": [
@@ -720,6 +804,21 @@
                     "default": null,
                     "description": "Nodes inheriting from this Generic schema must belong to one of the listed namespaces",
                     "title": "Restricted Namespaces"
+                },
+                "hash": {
+                    "description": "'hash' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'hash' is a read-only field, the submitted value is ignored"
+                },
+                "kind": {
+                    "description": "'kind' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'kind' is a read-only field, the submitted value is ignored"
+                },
+                "used_by": {
+                    "description": "'used_by' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'used_by' is a read-only field, the submitted value is ignored"
                 }
             },
             "required": [
@@ -727,7 +826,8 @@
                 "namespace"
             ],
             "title": "GenericSchemaWrite",
-            "type": "object"
+            "type": "object",
+            "additionalProperties": false
         },
         "ListAttributeParametersWrite": {
             "properties": {
@@ -743,10 +843,21 @@
                     "default": null,
                     "description": "Regular expression that each list item value must match if defined",
                     "title": "Regex"
+                },
+                "id": {
+                    "description": "'id' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'id' is a read-only field, the submitted value is ignored"
+                },
+                "state": {
+                    "description": "'state' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'state' is a read-only field, the submitted value is ignored"
                 }
             },
             "title": "ListAttributeParametersWrite",
-            "type": "object"
+            "type": "object",
+            "additionalProperties": false
         },
         "ListAttributeWrite": {
             "properties": {
@@ -1005,6 +1116,11 @@
                     ],
                     "default": null,
                     "description": "Extra parameters specific to this kind of attribute"
+                },
+                "inherited": {
+                    "description": "'inherited' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'inherited' is a read-only field, the submitted value is ignored"
                 }
             },
             "required": [
@@ -1012,7 +1128,8 @@
                 "kind"
             ],
             "title": "ListAttributeWrite",
-            "type": "object"
+            "type": "object",
+            "additionalProperties": false
         },
         "NodeExtensionWrite": {
             "properties": {
@@ -1080,13 +1197,24 @@
                     },
                     "title": "Relationships",
                     "type": "array"
+                },
+                "id": {
+                    "description": "'id' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'id' is a read-only field, the submitted value is ignored"
+                },
+                "state": {
+                    "description": "'state' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'state' is a read-only field, the submitted value is ignored"
                 }
             },
             "required": [
                 "kind"
             ],
             "title": "NodeExtensionWrite",
-            "type": "object"
+            "type": "object",
+            "additionalProperties": false
         },
         "NodeSchemaWrite": {
             "properties": {
@@ -1209,7 +1337,9 @@
                     ],
                     "default": null,
                     "description": "List of attributes to use to generate the display label (deprecated)",
-                    "title": "Display Labels"
+                    "title": "Display Labels",
+                    "deprecated": true,
+                    "deprecationMessage": "display_labels are deprecated use display_label instead"
                 },
                 "include_in_menu": {
                     "anyOf": [
@@ -1408,6 +1538,21 @@
                     "default": null,
                     "description": "Expected Kind for the children nodes in a Hierarchy, default to the main generic defined if not defined.",
                     "title": "Children"
+                },
+                "hash": {
+                    "description": "'hash' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'hash' is a read-only field, the submitted value is ignored"
+                },
+                "hierarchy": {
+                    "description": "'hierarchy' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'hierarchy' is a read-only field, the submitted value is ignored"
+                },
+                "kind": {
+                    "description": "'kind' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'kind' is a read-only field, the submitted value is ignored"
                 }
             },
             "required": [
@@ -1415,7 +1560,8 @@
                 "namespace"
             ],
             "title": "NodeSchemaWrite",
-            "type": "object"
+            "type": "object",
+            "additionalProperties": false
         },
         "NumberAttributeParametersWrite": {
             "properties": {
@@ -1458,10 +1604,21 @@
                     "default": null,
                     "description": "List of values or range of values not allowed for the attribute, format is: '100,150-200,280,300-400'",
                     "title": "Excluded Values"
+                },
+                "id": {
+                    "description": "'id' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'id' is a read-only field, the submitted value is ignored"
+                },
+                "state": {
+                    "description": "'state' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'state' is a read-only field, the submitted value is ignored"
                 }
             },
             "title": "NumberAttributeParametersWrite",
-            "type": "object"
+            "type": "object",
+            "additionalProperties": false
         },
         "NumberAttributeWrite": {
             "properties": {
@@ -1720,6 +1877,11 @@
                     ],
                     "default": null,
                     "description": "Extra parameters specific to this kind of attribute"
+                },
+                "inherited": {
+                    "description": "'inherited' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'inherited' is a read-only field, the submitted value is ignored"
                 }
             },
             "required": [
@@ -1727,7 +1889,8 @@
                 "kind"
             ],
             "title": "NumberAttributeWrite",
-            "type": "object"
+            "type": "object",
+            "additionalProperties": false
         },
         "NumberPoolAttributeWrite": {
             "properties": {
@@ -1986,6 +2149,11 @@
                     ],
                     "default": null,
                     "description": "Extra parameters specific to this kind of attribute"
+                },
+                "inherited": {
+                    "description": "'inherited' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'inherited' is a read-only field, the submitted value is ignored"
                 }
             },
             "required": [
@@ -1993,7 +2161,8 @@
                 "kind"
             ],
             "title": "NumberPoolAttributeWrite",
-            "type": "object"
+            "type": "object",
+            "additionalProperties": false
         },
         "NumberPoolParametersWrite": {
             "properties": {
@@ -2021,10 +2190,21 @@
                     "default": null,
                     "description": "The ID of the numberpool associated with this attribute. Only set after the number pool has been provisioned.",
                     "title": "Number Pool Id"
+                },
+                "id": {
+                    "description": "'id' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'id' is a read-only field, the submitted value is ignored"
+                },
+                "state": {
+                    "description": "'state' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'state' is a read-only field, the submitted value is ignored"
                 }
             },
             "title": "NumberPoolParametersWrite",
-            "type": "object"
+            "type": "object",
+            "additionalProperties": false
         },
         "RelationshipCardinality": {
             "enum": [
@@ -2270,6 +2450,16 @@
                     "$ref": "#/$defs/SchemaAttributeDisplay",
                     "default": "default",
                     "description": "Controls where the relationship is displayed. 'default' shows in the main view, 'extra' shows in an expanded/secondary section."
+                },
+                "hierarchical": {
+                    "description": "'hierarchical' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'hierarchical' is a read-only field, the submitted value is ignored"
+                },
+                "inherited": {
+                    "description": "'inherited' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'inherited' is a read-only field, the submitted value is ignored"
                 }
             },
             "required": [
@@ -2277,7 +2467,8 @@
                 "peer"
             ],
             "title": "RelationshipSchemaWrite",
-            "type": "object"
+            "type": "object",
+            "additionalProperties": false
         },
         "SchemaAttributeDisplay": {
             "enum": [
@@ -2296,10 +2487,21 @@
                     },
                     "title": "Nodes",
                     "type": "array"
+                },
+                "id": {
+                    "description": "'id' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'id' is a read-only field, the submitted value is ignored"
+                },
+                "state": {
+                    "description": "'state' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'state' is a read-only field, the submitted value is ignored"
                 }
             },
             "title": "SchemaExtensionWrite",
-            "type": "object"
+            "type": "object",
+            "additionalProperties": false
         },
         "SchemaState": {
             "enum": [
@@ -2349,10 +2551,21 @@
                     "default": null,
                     "description": "Set a maximum number of characters allowed.",
                     "title": "Max Length"
+                },
+                "id": {
+                    "description": "'id' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'id' is a read-only field, the submitted value is ignored"
+                },
+                "state": {
+                    "description": "'state' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'state' is a read-only field, the submitted value is ignored"
                 }
             },
             "title": "TextAttributeParametersWrite",
-            "type": "object"
+            "type": "object",
+            "additionalProperties": false
         },
         "TextAttributeWrite": {
             "properties": {
@@ -2614,6 +2827,11 @@
                     ],
                     "default": null,
                     "description": "Extra parameters specific to this kind of attribute"
+                },
+                "inherited": {
+                    "description": "'inherited' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'inherited' is a read-only field, the submitted value is ignored"
                 }
             },
             "required": [
@@ -2621,7 +2839,8 @@
                 "kind"
             ],
             "title": "TextAttributeWrite",
-            "type": "object"
+            "type": "object",
+            "additionalProperties": false
         }
     },
     "properties": {
@@ -2653,11 +2872,32 @@
                 }
             ],
             "default": null
+        },
+        "main": {
+            "description": "'main' is a read-only field, the submitted value is ignored",
+            "deprecated": true,
+            "deprecationMessage": "'main' is a read-only field, the submitted value is ignored"
+        },
+        "namespaces": {
+            "description": "'namespaces' is a read-only field, the submitted value is ignored",
+            "deprecated": true,
+            "deprecationMessage": "'namespaces' is a read-only field, the submitted value is ignored"
+        },
+        "profiles": {
+            "description": "'profiles' is a read-only field, the submitted value is ignored",
+            "deprecated": true,
+            "deprecationMessage": "'profiles' is a read-only field, the submitted value is ignored"
+        },
+        "templates": {
+            "description": "'templates' is a read-only field, the submitted value is ignored",
+            "deprecated": true,
+            "deprecationMessage": "'templates' is a read-only field, the submitted value is ignored"
         }
     },
     "required": [
         "version"
     ],
     "title": "InfrahubSchema",
-    "type": "object"
+    "type": "object",
+    "additionalProperties": false
 }
