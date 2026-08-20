@@ -17,6 +17,10 @@ from jsonschema import Draft202012Validator
 REPO_ROOT = Path(__file__).parent.parent
 ALL_JSON_FILES = sorted(glob.glob(str(REPO_ROOT / "**" / "*.json"), recursive=True))
 
+# From this Python SDK version onwards, a 'watch' block is required on
+# python_transforms and generator_definitions.
+WATCH_REQUIRED_SDK_VERSION = (1, 23, 0)
+
 
 class SchemaSection(StrEnum):
     PYTHON_SDK = "python-sdk"
@@ -85,6 +89,23 @@ class JsonTestCase:
             return int(version_parts[0]) >= 1
         return False
 
+    @property
+    def version_tuple(self) -> tuple[int, ...] | None:
+        """Numeric version, or None for special versions like develop/latest."""
+        version_parts = self.version.split(".")
+        if all(part.isdigit() for part in version_parts):
+            return tuple(int(part) for part in version_parts)
+        return None
+
+    @property
+    def requires_watch(self) -> bool:
+        """Check if this schema requires a 'watch' block on transforms and generators."""
+        version = self.version_tuple
+        if version is None:
+            # develop/latest always track the newest schema
+            return True
+        return version >= WATCH_REQUIRED_SDK_VERSION
+
 
 ALL_JSON_TEST_CASES = [
     JsonTestCase(file_path=Path(json_file)) for json_file in ALL_JSON_FILES
@@ -95,6 +116,14 @@ PYTHON_SDK_TEST_CASES = [
     for test_case in ALL_JSON_TEST_CASES
     if test_case.section == SchemaSection.PYTHON_SDK
     and test_case.is_version_1_or_higher
+]
+
+PYTHON_SDK_WATCH_TEST_CASES = [
+    test_case for test_case in PYTHON_SDK_TEST_CASES if test_case.requires_watch
+]
+
+PYTHON_SDK_NO_WATCH_TEST_CASES = [
+    test_case for test_case in PYTHON_SDK_TEST_CASES if not test_case.requires_watch
 ]
 
 INFRAHUB_SCHEMA_TEST_CASES = [
@@ -111,6 +140,16 @@ def test_python_sdk_test_cases_sanity_check() -> None:
     """Sanity check to ensure PYTHON_SDK_TEST_CASES has a reasonable number of entries."""
     assert len(PYTHON_SDK_TEST_CASES) > 5, (
         f"Expected more than 5 Python SDK test cases, got {len(PYTHON_SDK_TEST_CASES)}"
+    )
+
+
+def test_python_sdk_watch_test_cases_sanity_check() -> None:
+    """Sanity check that both sides of the 'watch' version boundary are covered."""
+    assert PYTHON_SDK_WATCH_TEST_CASES, (
+        "Expected at least one Python SDK schema requiring a 'watch' block"
+    )
+    assert PYTHON_SDK_NO_WATCH_TEST_CASES, (
+        "Expected at least one Python SDK schema predating the 'watch' block"
     )
 
 
@@ -147,18 +186,65 @@ def test_collect_and_validate_all_json_schema_files(test_case: JsonTestCase) -> 
 
 @pytest.mark.parametrize(
     "test_case",
-    [pytest.param(tc, id=tc.name) for tc in PYTHON_SDK_TEST_CASES],
+    [pytest.param(tc, id=tc.name) for tc in PYTHON_SDK_NO_WATCH_TEST_CASES],
 )
 def test_validate_basic_yaml_against_python_sdk_schemas(
     test_case: JsonTestCase,
 ) -> None:
-    """Validate that basic_all.yml is valid against Python SDK schemas."""
+    """Validate that basic_all.yml is valid against pre-1.23.0 Python SDK schemas."""
 
     with open(test_case.file_path, "r", encoding="utf-8") as f:
         schema = json.load(f)
 
     yaml_file_path = (
         REPO_ROOT / "tests" / "test_data" / "repository_configs" / "basic_all.yml"
+    )
+    with open(yaml_file_path, "r", encoding="utf-8") as f:
+        data = yaml.safe_load(f)
+
+    validator = Draft202012Validator(schema)
+    validator.validate(data)
+
+
+@pytest.mark.parametrize(
+    "test_case",
+    [pytest.param(tc, id=tc.name) for tc in PYTHON_SDK_WATCH_TEST_CASES],
+)
+def test_validate_basic_yaml_without_watch_fails_against_python_sdk_schemas(
+    test_case: JsonTestCase,
+) -> None:
+    """Validate that basic_all.yml fails against 1.23.0+ schemas, which require 'watch'."""
+
+    with open(test_case.file_path, "r", encoding="utf-8") as f:
+        schema = json.load(f)
+
+    yaml_file_path = (
+        REPO_ROOT / "tests" / "test_data" / "repository_configs" / "basic_all.yml"
+    )
+    with open(yaml_file_path, "r", encoding="utf-8") as f:
+        data = yaml.safe_load(f)
+
+    validator = Draft202012Validator(schema)
+    with pytest.raises(
+        jsonschema.ValidationError, match="'watch' is a required property"
+    ):
+        validator.validate(data)
+
+
+@pytest.mark.parametrize(
+    "test_case",
+    [pytest.param(tc, id=tc.name) for tc in PYTHON_SDK_WATCH_TEST_CASES],
+)
+def test_validate_basic_watch_yaml_against_python_sdk_schemas(
+    test_case: JsonTestCase,
+) -> None:
+    """Validate that basic_all_watch.yml is valid against 1.23.0+ Python SDK schemas."""
+
+    with open(test_case.file_path, "r", encoding="utf-8") as f:
+        schema = json.load(f)
+
+    yaml_file_path = (
+        REPO_ROOT / "tests" / "test_data" / "repository_configs" / "basic_all_watch.yml"
     )
     with open(yaml_file_path, "r", encoding="utf-8") as f:
         data = yaml.safe_load(f)
