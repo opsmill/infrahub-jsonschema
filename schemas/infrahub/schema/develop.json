@@ -2167,29 +2167,127 @@
         "NumberPoolParametersWrite": {
             "properties": {
                 "end_range": {
-                    "default": 9223372036854775807,
-                    "description": "End range for numbers for the associated NumberPool",
-                    "title": "End Range",
-                    "type": "integer"
-                },
-                "start_range": {
-                    "default": 1,
-                    "description": "Start range for numbers for the associated NumberPool",
-                    "title": "Start Range",
-                    "type": "integer"
-                },
-                "number_pool_id": {
                     "anyOf": [
                         {
-                            "type": "string"
+                            "type": "integer"
                         },
                         {
                             "type": "null"
                         }
                     ],
                     "default": null,
-                    "description": "The ID of the numberpool associated with this attribute. Only set after the number pool has been provisioned.",
-                    "title": "Number Pool Id"
+                    "description": "Deprecated, use ranges instead. End of the single range, defaults to the largest supported number when only start_range is set",
+                    "title": "End Range",
+                    "deprecated": true,
+                    "deprecationMessage": "end_range is deprecated, use ranges instead"
+                },
+                "start_range": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Deprecated, use ranges instead. Start of the single range, defaults to 1 when only end_range is set",
+                    "title": "Start Range",
+                    "deprecated": true,
+                    "deprecationMessage": "start_range is deprecated, use ranges instead"
+                },
+                "ranges": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "$ref": "#/$defs/NumberPoolRangeWrite"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Ranges the NumberPool allocates from, without overlap. Unset means one range with no start or end; an empty list means no range",
+                    "title": "Ranges"
+                },
+                "allocation_scope": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Fields of the kind that divide the pool's space; allocation returns the lowest free number within the writer's division",
+                    "title": "Allocation Scope"
+                },
+                "id": {
+                    "description": "'id' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'id' is a read-only field, the submitted value is ignored"
+                },
+                "number_pool_id": {
+                    "description": "'number_pool_id' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'number_pool_id' is a read-only field, the submitted value is ignored"
+                },
+                "state": {
+                    "description": "'state' is a read-only field, the submitted value is ignored",
+                    "deprecated": true,
+                    "deprecationMessage": "'state' is a read-only field, the submitted value is ignored"
+                }
+            },
+            "title": "NumberPoolParametersWrite",
+            "type": "object",
+            "additionalProperties": false
+        },
+        "NumberPoolRangeWrite": {
+            "properties": {
+                "start": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "First number of the range, 1 when unset",
+                    "title": "Start"
+                },
+                "end": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Last number of the range, the largest supported number when unset",
+                    "title": "End"
+                },
+                "weight": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Ranges with a higher weight are allocated from first",
+                    "title": "Weight"
                 },
                 "id": {
                     "description": "'id' is a read-only field, the submitted value is ignored",
@@ -2202,7 +2300,7 @@
                     "deprecationMessage": "'state' is a read-only field, the submitted value is ignored"
                 }
             },
-            "title": "NumberPoolParametersWrite",
+            "title": "NumberPoolRangeWrite",
             "type": "object",
             "additionalProperties": false
         },
